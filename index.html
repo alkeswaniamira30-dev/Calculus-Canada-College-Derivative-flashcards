@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculus 1 Derivative Rules Flashcards</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- KaTeX for Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <style>
+    .perspective { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col font-sans">
+
+  <!-- TOP NAVIGATION BAR: ALWAYS VISIBLE TOPIC ICONS -->
+  <header class="bg-white shadow-md border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between mb-2">
+        <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <span>📐</span> Calculus 1: Derivative Rules Practice
+        </h1>
+        <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full">Interactive Practice</span>
+      </div>
+      
+      <!-- Horizontal Scrollable Category Bar -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 text-sm no-scrollbar">
+        <button onclick="selectTopic('memory')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-emerald-50 text-emerald-700 font-semibold hover:bg-emerald-100 whitespace-nowrap transition">
+          <span>🧠</span> Memory Aid
+        </button>
+        <button onclick="selectTopic('mixed')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-indigo-50 text-indigo-700 font-semibold hover:bg-indigo-100 whitespace-nowrap transition">
+          <span>🎲</span> Mixed Problems
+        </button>
+        <div class="h-5 w-px bg-slate-300 mx-1 flex-shrink-0"></div>
+        <button onclick="selectTopic('constant')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>⏹️</span> Constant Rule
+        </button>
+        <button onclick="selectTopic('constant_multiple')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>✖️</span> Constant Multiple
+        </button>
+        <button onclick="selectTopic('power')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>⚡</span> Power Rule
+        </button>
+        <button onclick="selectTopic('sum_diff')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>➕</span> Sum & Difference
+        </button>
+        <button onclick="selectTopic('product')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>✖️</span> Product Rule
+        </button>
+        <button onclick="selectTopic('quotient')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>➗</span> Quotient Rule
+        </button>
+        <button onclick="selectTopic('chain')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>🔗</span> Chain Rule (u)
+        </button>
+        <button onclick="selectTopic('trig')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>📐</span> Trig Rules
+        </button>
+        <button onclick="selectTopic('exp_log')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>📈</span> Exp & Log
+        </button>
+        <button onclick="selectTopic('inv_trig')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>🔄</span> Inverse Trig
+        </button>
+        <button onclick="selectTopic('implicit')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+          <span>🔀</span> Implicit Diff.
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN PRACTICE CONTAINER -->
+  <main class="max-w-4xl mx-auto px-4 py-6 flex-1 w-full flex flex-col gap-6">
+
+    <!-- Active Topic Info & Actions -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 id="topicTitle" class="text-2xl font-bold text-slate-800">Memory Aid Practice</h2>
+        <p id="topicSubtitle" class="text-sm text-slate-500">Practice general formula recall for core derivative rules.</p>
+      </div>
+      <button onclick="shuffleDeck()" class="flex items-center gap-1.5 px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-sm transition">
+        <span>🔀</span> Shuffle Deck
+      </button>
+    </div>
+
+    <!-- FLASHCARD CONTAINER -->
+    <div class="relative w-full h-80 perspective">
+      <div id="cardInner" class="w-full h-full duration-500 transform-style-3d cursor-pointer rounded-2xl shadow-lg border border-slate-200 bg-white relative">
+        
+        <!-- CARD FRONT -->
+        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden bg-white">
+          <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+            <span id="cardCategory" class="uppercase tracking-wider">Product Rule</span>
+            <span id="cardCounter">Card 1 of 5</span>
+          </div>
+          <div class="my-auto text-center">
+            <h3 id="cardTitle" class="text-xl font-semibold text-slate-700 mb-2">Product Rule</h3>
+            <div id="cardQuestionMath" class="text-2xl font-bold text-slate-900 my-4"></div>
+            <p id="cardPrompt" class="text-sm text-slate-500">What is the formula for y'?</p>
+          </div>
+          <div class="text-center text-xs text-slate-400">Click or press "Flip Card" to reveal answer</div>
+        </div>
+
+        <!-- CARD BACK -->
+        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden rotate-y-180 bg-slate-900 text-white">
+          <div class="flex justify-between items-center text-xs font-semibold text-emerald-400">
+            <span>SOLUTION / FORMULA</span>
+            <span>ANSWER</span>
+          </div>
+          <div class="my-auto text-center">
+            <div id="cardAnswerMath" class="text-2xl font-bold text-emerald-300 my-4"></div>
+            <div id="cardExplanation" class="text-sm text-slate-300 max-w-lg mx-auto"></div>
+          </div>
+          <div class="text-center text-xs text-slate-500">Click to flip back</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FLASHCARD CONTROLS -->
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <button onclick="prevCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 transition">← Previous</button>
+      <button onclick="toggleFlip()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-semibold rounded-lg text-white transition">Flip Card 🔄</button>
+      <button onclick="toggleHint()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 font-semibold rounded-lg text-amber-800 transition">Show Hint 💡</button>
+      <button onclick="nextCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 transition">Next →</button>
+    </div>
+
+    <!-- HINT CONTAINER -->
+    <div id="hintBox" class="hidden p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-sm">
+      <span class="font-bold">Hint:</span> <span id="hintText"></span>
+    </div>
+
+    <!-- STUDENT WORK AREA / SCRATCHPAD -->
+    <div class="bg-white border border-emerald-200 rounded-2xl p-5 shadow-sm flex flex-col gap-2">
+      <label class="text-xs font-bold uppercase tracking-wide text-emerald-700 flex items-center gap-1.5">
+        <span>✏️</span> Work Area / Student Scratchpad:
+      </label>
+      <textarea id="studentWork" rows="3" class="w-full p-3 border border-slate-200 rounded-xl text-sm font-mono focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Write your step-by-step work here..."></textarea>
+    </div>
+
+    <!-- PROGRESS DASHBOARD -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-6 text-sm">
+        <div>
+          <span class="text-slate-400 block text-xs">Cards Reviewed</span>
+          <span id="statReviewed" class="text-lg font-bold text-slate-800">0</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-xs">Accuracy Rate</span>
+          <span id="statAccuracy" class="text-lg font-bold text-emerald-600">0%</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-xs">Current Streak</span>
+          <span id="statStreak" class="text-lg font-bold text-amber-500">0 🔥</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-semibold text-slate-500 mr-2">Self-Grading:</span>
+        <button onclick="recordGrade(true)" class="px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-semibold text-xs rounded-lg transition">Got it Right ✓</button>
+        <button onclick="recordGrade(false)" class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-800 font-semibold text-xs rounded-lg transition">Need Review ✗</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // COMPLETE FLASHCARD DATASET
+    const decks = {
+      memory: [
+        { cat: "Constant Rule", title: "Constant Rule", q: "y = c", prompt: "What is y'?", a: "y' = 0", exp: "The derivative of any constant value is zero.", hint: "Think about the slope of a flat horizontal line." },
+        { cat: "Constant Multiple", title: "Constant Multiple Rule", q: "y = c \\cdot f(x)", prompt: "What is y'?", a: "y' = c \\cdot f'(x)", exp: "Keep the constant c in front and multiply by f'(x).", hint: "Pull the constant outside the derivative operator." },
+        { cat: "Power Rule", title: "Power Rule", q: "y = x^n", prompt: "What is y'?", a: "y' = n x^{n-1}", exp: "Bring power n down to front and subtract 1 from exponent.", hint: "Multiply by power, subtract 1." },
+        { cat: "Product Rule", title: "Product Rule", q: "y = f(x)g(x)", prompt: "What is y'?", a: "y' = f'(x)g(x) + f(x)g'(x)", exp: "Derivative of first times second plus first times derivative of second.", hint: "f'g + fg'" },
+        { cat: "Quotient Rule", title: "Quotient Rule", q: "y = \\frac{f(x)}{g(x)}", prompt: "What is y'?", a: "y' = \\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}", exp: "Low d-high minus high d-low over low squared.", hint: "(f'g - fg') / g^2" },
+        { cat: "Chain Rule", title: "Chain Rule", q: "y = f(g(x)), \\quad u = g(x)", prompt: "What is \\frac{dy}{dx}?", a: "\\frac{dy}{dx} = f'(u) \\cdot u'", exp: "Differentiate outside function evaluating at u, multiply by u'.", hint: "Outer prime times inner prime." }
+      ],
+      constant: [
+        { cat: "Constant Rule", title: "Constant Rule Practice", q: "y = 5", prompt: "Find y'", a: "y' = 0", exp: "Derivative of constant 5 is 0.", hint: "Rate of change of a constant is always zero." },
+        { cat: "Constant Rule", title: "Constant Rule Practice", q: "y = \\pi^2", prompt: "Find y'", a: "y' = 0", exp: "pi^2 is a constant numerical value.", hint: "pi^2 contains no variables." }
+      ],
+      product: [
+        { cat: "Product Rule", title: "Product Rule Practice", q: "y = x^2 \\sin(x)", prompt: "Find y'", a: "y' = 2x\\sin(x) + x^2\\cos(x)", exp: "Set f(x)=x^2 and g(x)=sin(x). Apply f'g + fg'.", hint: "f'(x)=2x and g'(x)=cos(x)." }
+      ],
+      chain: [
+        { cat: "Chain Rule", title: "Chain Rule Practice", q: "y = (3x + 1)^4", prompt: "Find y' setting u = g(x)", a: "y' = 12(3x + 1)^3", exp: "Let u = 3x + 1. y = u^4. dy/du = 4u^3, du/dx = 3. Multiply to get 12u^3.", hint: "u = 3x + 1, so u' = 3." }
+      ]
+    };
+
+    // State Variables
+    let currentTopicKey = 'memory';
+    let activeDeck = [...decks.memory];
+    let currentIndex = 0;
+    let isFlipped = false;
+    let reviewedCount = 0;
+    let correctCount = 0;
+    let currentStreak = 0;
+
+    // Element Selectors
+    const cardInner = document.getElementById('cardInner');
+    const cardCategory = document.getElementById('cardCategory');
+    const cardCounter = document.getElementById('cardCounter');
+    const cardTitle = document.getElementById('cardTitle');
+    const cardQuestionMath = document.getElementById('cardQuestionMath');
+    const cardPrompt = document.getElementById('cardPrompt');
+    const cardAnswerMath = document.getElementById('cardAnswerMath');
+    const cardExplanation = document.getElementById('cardExplanation');
+    const hintBox = document.getElementById('hintBox');
+    const hintText = document.getElementById('hintText');
+
+    function selectTopic(topicKey) {
+      currentTopicKey = topicKey;
+      if (topicKey === 'mixed') {
+        activeDeck = Object.values(decks).flat();
+      } else {
+        activeDeck = [...(decks[topicKey] || decks.memory)];
+      }
+      currentIndex = 0;
+      isFlipped = false;
+      cardInner.classList.remove('rotate-y-180');
+      hintBox.classList.add('hidden');
+      updateCard();
+    }
+
+    function updateCard() {
+      const card = activeDeck[currentIndex];
+      cardCategory.textContent = card.cat;
+      cardCounter.textContent = `Card ${currentIndex + 1} of ${activeDeck.length}`;
+      cardTitle.textContent = card.title;
+      cardPrompt.textContent = card.prompt;
+      cardExplanation.textContent = card.exp;
+      hintText.textContent = card.hint;
+
+      // Render KaTeX Math
+      katex.render(card.q, cardQuestionMath, { displayMode: true, throwOnError: false });
+      katex.render(card.a, cardAnswerMath, { displayMode: true, throwOnError: false });
+    }
+
+    function toggleFlip() {
+      isFlipped = !isFlipped;
+      cardInner.classList.toggle('rotate-y-180', isFlipped);
+    }
+
+    function toggleHint() {
+      hintBox.classList.toggle('hidden');
+    }
+
+    function nextCard() {
+      if (currentIndex < activeDeck.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      if (isFlipped) toggleFlip();
+      hintBox.classList.add('hidden');
+      updateCard();
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = activeDeck.length - 1;
+      }
+      if (isFlipped) toggleFlip();
+      hintBox.classList.add('hidden');
+      updateCard();
+    }
+
+    function shuffleDeck() {
+      for (let i = activeDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [activeDeck[i], activeDeck[j]] = [activeDeck[j], activeDeck[i]];
+      }
+      currentIndex = 0;
+      if (isFlipped) toggleFlip();
+      updateCard();
+    }
+
+    function recordGrade(isCorrect) {
+      reviewedCount++;
+      if (isCorrect) {
+        correctCount++;
+        currentStreak++;
+      } else {
+        currentStreak = 0;
+      }
+      document.getElementById('statReviewed').textContent = reviewedCount;
+      document.getElementById('statAccuracy').textContent = `${Math.round((correctCount / reviewedCount) * 100)}%`;
+      document.getElementById('statStreak').textContent = `${currentStreak} 🔥`;
+      nextCard();
+    }
+
+    cardInner.addEventListener('click', toggleFlip);
+
+    // Initial Load
+    window.onload = () => selectTopic('memory');
+  </script>
+</body>
+</html>
