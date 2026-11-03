@@ -15,16 +15,23 @@
     .backface-hidden { backface-visibility: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
     .topic-btn-active {
-      background-color: #059669 !important;
+      background-color: #f43f5e !important;
       color: #ffffff !important;
-      border-color: #047857 !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-color: #e11d48 !important;
+      box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
+      transform: translateY(-2px);
+    }
+    .flashcard-front {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef2f2 50%, #fff1f2 100%);
+    }
+    .flashcard-back {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
     }
   </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col font-sans">
 
-  <!-- TOP NAVIGATION BAR: PROMINENT GRID NAVIGATION -->
+  <!-- TOP NAVIGATION BAR: PROMINENT SQUARE GRID NAVIGATION -->
   <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
@@ -32,7 +39,7 @@
           <span class="text-2xl">📐</span> Calculus 1: Derivative Rules Practice
         </h1>
         <div class="flex items-center gap-2">
-          <span id="activeBadge" class="text-xs font-bold px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">
+          <span id="activeBadge" class="text-xs font-bold px-3 py-1 bg-rose-100 text-rose-800 rounded-full border border-rose-200">
             Memory Aid
           </span>
           <button onclick="shuffleDeck()" class="flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-xs transition">
@@ -41,46 +48,59 @@
         </div>
       </div>
       
-      <!-- Multi-Row Structured Grid Layout for Topics -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 text-xs font-medium">
-        <button id="btn-memory" onclick="selectTopic('memory')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition text-center font-bold">
-          <span>🧠</span> Memory Aid
+      <!-- Multi-Row Structured Grid with Large Square Tiles -->
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-13 gap-2 text-xs font-medium">
+        <button id="btn-memory" onclick="selectTopic('memory')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-rose-200 bg-rose-50 text-rose-900 hover:bg-rose-100 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🧠</span>
+          <span class="font-bold leading-tight">Memory Aid</span>
         </button>
-        <button id="btn-mixed" onclick="selectTopic('mixed')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-indigo-50 text-indigo-800 hover:bg-indigo-100 transition text-center font-bold">
-          <span>🎲</span> Mixed Deck
+        <button id="btn-mixed" onclick="selectTopic('mixed')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-900 hover:bg-indigo-100 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🎲</span>
+          <span class="font-bold leading-tight">Mixed Deck</span>
         </button>
-        <button id="btn-constant" onclick="selectTopic('constant')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>🛑</span> Constant Rule
+        <button id="btn-constant" onclick="selectTopic('constant')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🛑</span>
+          <span class="leading-tight">Constant Rule</span>
         </button>
-        <button id="btn-constant_multiple" onclick="selectTopic('constant_multiple')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>✖️</span> Constant Mult.
+        <button id="btn-constant_multiple" onclick="selectTopic('constant_multiple')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">✖️</span>
+          <span class="leading-tight">Constant Mult.</span>
         </button>
-        <button id="btn-power" onclick="selectTopic('power')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>⚡</span> Power Rule
+        <button id="btn-power" onclick="selectTopic('power')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">⚡</span>
+          <span class="leading-tight">Power Rule</span>
         </button>
-        <button id="btn-sum_diff" onclick="selectTopic('sum_diff')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>➕</span> Sum & Diff
+        <button id="btn-sum_diff" onclick="selectTopic('sum_diff')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">➕</span>
+          <span class="leading-tight">Sum & Diff</span>
         </button>
-        <button id="btn-product" onclick="selectTopic('product')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>📦</span> Product Rule
+        <button id="btn-product" onclick="selectTopic('product')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">📦</span>
+          <span class="leading-tight">Product Rule</span>
         </button>
-        <button id="btn-quotient" onclick="selectTopic('quotient')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>➗</span> Quotient Rule
+        <button id="btn-quotient" onclick="selectTopic('quotient')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">➗</span>
+          <span class="leading-tight">Quotient Rule</span>
         </button>
-        <button id="btn-chain" onclick="selectTopic('chain')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>🔗</span> Chain Rule ($u$)
+        <button id="btn-chain" onclick="selectTopic('chain')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🔗</span>
+          <span class="leading-tight">Chain ($u$)</span>
         </button>
-        <button id="btn-trig" onclick="selectTopic('trig')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>📐</span> Trig Rules
+        <button id="btn-trig" onclick="selectTopic('trig')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">📐</span>
+          <span class="leading-tight">Trig Rules</span>
         </button>
-        <button id="btn-exp_log" onclick="selectTopic('exp_log')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>📈</span> Exp & Log
+        <button id="btn-exp_log" onclick="selectTopic('exp_log')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">📈</span>
+          <span class="leading-tight">Exp & Log</span>
         </button>
-        <button id="btn-inv_trig" onclick="selectTopic('inv_trig')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
-          <span>🔄</span> Inverse Trig
+        <button id="btn-inv_trig" onclick="selectTopic('inv_trig')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🔄</span>
+          <span class="leading-tight">Inverse Trig</span>
         </button>
-        <button id="btn-implicit" onclick="selectTopic('implicit')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center lg:col-span-2">
-          <span>🔀</span> Implicit Differentiation
+        <button id="btn-implicit" onclick="selectTopic('implicit')" class="topic-btn flex flex-col items-center justify-center p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition text-center aspect-square shadow-2xs">
+          <span class="text-xl mb-1">🔀</span>
+          <span class="leading-tight">Implicit Diff</span>
         </button>
       </div>
     </div>
@@ -102,48 +122,28 @@
 
     <!-- FLASHCARD CONTAINER -->
     <div class="relative w-full h-80 perspective">
-      <div id="cardInner" class="w-full h-full duration-500 transform-style-3d cursor-pointer rounded-2xl shadow-md border border-slate-200 bg-white relative">
+      <div id="cardInner" class="w-full h-full duration-500 transform-style-3d cursor-pointer rounded-2xl shadow-lg border border-pink-200/80 relative">
         
-        <!-- CARD FRONT -->
-        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden bg-white">
-          <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+        <!-- CARD FRONT (LIGHT YELLOW & PINK GRADIENT WITH MOTIVATIONAL ELEMENTS) -->
+        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden flashcard-front border border-amber-100">
+          <div class="flex justify-between items-center text-xs font-semibold text-rose-500">
             <span id="cardCategory" class="uppercase tracking-wider">Product Rule</span>
-            <span>FRONT - PROBLEM</span>
+            <span class="px-2.5 py-1 bg-white/80 rounded-full border border-rose-200 text-rose-600 font-bold shadow-2xs">✨ You've got this!</span>
           </div>
           <div class="my-auto text-center">
-            <h3 id="cardTitle" class="text-lg font-semibold text-slate-600 mb-2">Product Rule</h3>
+            <h3 id="cardTitle" class="text-lg font-semibold text-amber-950/70 mb-1">Product Rule</h3>
             <div id="cardQuestionMath" class="text-2xl font-bold text-slate-900 my-4 min-h-[3rem] flex items-center justify-center"></div>
-            <p id="cardPrompt" class="text-xs sm:text-sm text-slate-500">What is the formula for y'?</p>
+            <p id="cardPrompt" class="text-xs sm:text-sm text-rose-900/60 font-medium">What is the formula for y'?</p>
           </div>
-          <div class="text-center text-xs text-slate-400">Click or press "Flip Card" to reveal answer</div>
+          <div class="flex justify-between items-center text-xs text-rose-400 font-medium">
+            <span>🌟 Keep going!</span>
+            <span>Click or press "Flip Card" to reveal answer 🔄</span>
+            <span>💪 Master this rule!</span>
+          </div>
         </div>
 
         <!-- CARD BACK -->
-        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden rotate-y-180 bg-slate-900 text-white">
-          <div class="flex justify-between items-center text-xs font-semibold text-emerald-400">
-            <span>SOLUTION & STEPS</span>
-            <span>BACK - ANSWER</span>
-          </div>
-          <div class="my-auto text-center">
-            <div id="cardAnswerMath" class="text-xl sm:text-2xl font-bold text-emerald-300 my-3 min-h-[3rem] flex items-center justify-center"></div>
-            <div id="cardExplanation" class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed"></div>
-          </div>
-          <div class="text-center text-xs text-slate-500">Click to flip back to question</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- FLASHCARD CONTROLS -->
-    <div class="flex flex-wrap items-center justify-center gap-3">
-      <button onclick="prevCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 text-sm transition">← Previous</button>
-      <button onclick="toggleFlip()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-semibold rounded-lg text-white text-sm transition shadow-sm">Flip Card 🔄</button>
-      <button onclick="toggleHint()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 font-semibold rounded-lg text-amber-800 text-sm transition">Show Hint 💡</button>
-      <button onclick="toggleSolution()" class="px-4 py-2 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-lg text-indigo-800 text-sm transition">Show Detailed Solution 🔍</button>
-      <button onclick="nextCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 text-sm transition">Next →</button>
-    </div>
-
-    <!-- HINT CONTAINER -->
+        <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden rotate-y-180 flashcard-back text-white">
     <div id="hintBox" class="hidden p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs sm:text-sm">
       <span class="font-bold">Hint:</span> <span id="hintText"></span>
     </div>
