@@ -14,94 +14,106 @@
     .transform-style-3d { transform-style: preserve-3d; }
     .backface-hidden { backface-visibility: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
+    .topic-btn-active {
+      background-color: #059669 !important;
+      color: #ffffff !important;
+      border-color: #047857 !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col font-sans">
 
-  <!-- TOP NAVIGATION BAR: ALWAYS VISIBLE TOPIC ICONS -->
-  <header class="bg-white shadow-md border-b border-slate-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3">
-      <div class="flex items-center justify-between mb-2">
+  <!-- TOP NAVIGATION BAR: PROMINENT GRID NAVIGATION -->
+  <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
         <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-          <span>📐</span> Calculus 1: Derivative Rules Practice
+          <span class="text-2xl">📐</span> Calculus 1: Derivative Rules Practice
         </h1>
-        <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full">Interactive Practice</span>
+        <div class="flex items-center gap-2">
+          <span id="activeBadge" class="text-xs font-bold px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">
+            Memory Aid
+          </span>
+          <button onclick="shuffleDeck()" class="flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-xs transition">
+            <span>🔀</span> Shuffle Deck
+          </button>
+        </div>
       </div>
       
-      <!-- Horizontal Scrollable Category Bar -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 text-sm no-scrollbar">
-        <button onclick="selectTopic('memory')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-emerald-50 text-emerald-700 font-semibold hover:bg-emerald-100 whitespace-nowrap transition">
+      <!-- Multi-Row Structured Grid Layout for Topics -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 text-xs font-medium">
+        <button id="btn-memory" onclick="selectTopic('memory')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition text-center font-bold">
           <span>🧠</span> Memory Aid
         </button>
-        <button onclick="selectTopic('mixed')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-indigo-50 text-indigo-700 font-semibold hover:bg-indigo-100 whitespace-nowrap transition">
-          <span>🎲</span> Mixed Problems
+        <button id="btn-mixed" onclick="selectTopic('mixed')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-indigo-50 text-indigo-800 hover:bg-indigo-100 transition text-center font-bold">
+          <span>🎲</span> Mixed Deck
         </button>
-        <div class="h-5 w-px bg-slate-300 mx-1 flex-shrink-0"></div>
-        <button onclick="selectTopic('constant')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>⏹️</span> Constant Rule
+        <button id="btn-constant" onclick="selectTopic('constant')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
+          <span>🛑</span> Constant Rule
         </button>
-        <button onclick="selectTopic('constant_multiple')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>✖️</span> Constant Multiple
+        <button id="btn-constant_multiple" onclick="selectTopic('constant_multiple')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
+          <span>✖️</span> Constant Mult.
         </button>
-        <button onclick="selectTopic('power')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+        <button id="btn-power" onclick="selectTopic('power')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
           <span>⚡</span> Power Rule
         </button>
-        <button onclick="selectTopic('sum_diff')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>➕</span> Sum & Difference
+        <button id="btn-sum_diff" onclick="selectTopic('sum_diff')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
+          <span>➕</span> Sum & Diff
         </button>
-        <button onclick="selectTopic('product')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>✖️</span> Product Rule
+        <button id="btn-product" onclick="selectTopic('product')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
+          <span>📦</span> Product Rule
         </button>
-        <button onclick="selectTopic('quotient')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+        <button id="btn-quotient" onclick="selectTopic('quotient')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
           <span>➗</span> Quotient Rule
         </button>
-        <button onclick="selectTopic('chain')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>🔗</span> Chain Rule (u)
+        <button id="btn-chain" onclick="selectTopic('chain')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
+          <span>🔗</span> Chain Rule ($u$)
         </button>
-        <button onclick="selectTopic('trig')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+        <button id="btn-trig" onclick="selectTopic('trig')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
           <span>📐</span> Trig Rules
         </button>
-        <button onclick="selectTopic('exp_log')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+        <button id="btn-exp_log" onclick="selectTopic('exp_log')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
           <span>📈</span> Exp & Log
         </button>
-        <button onclick="selectTopic('inv_trig')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
+        <button id="btn-inv_trig" onclick="selectTopic('inv_trig')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center">
           <span>🔄</span> Inverse Trig
         </button>
-        <button onclick="selectTopic('implicit')" class="topic-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 whitespace-nowrap transition">
-          <span>🔀</span> Implicit Diff.
+        <button id="btn-implicit" onclick="selectTopic('implicit')" class="topic-btn flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition text-center lg:col-span-2">
+          <span>🔀</span> Implicit Differentiation
         </button>
       </div>
     </div>
   </header>
 
   <!-- MAIN PRACTICE CONTAINER -->
-  <main class="max-w-4xl mx-auto px-4 py-6 flex-1 w-full flex flex-col gap-6">
+  <main class="max-w-4xl mx-auto px-4 py-6 flex-1 w-full flex flex-col gap-5">
 
-    <!-- Active Topic Info & Actions -->
-    <div class="flex items-center justify-between">
+    <!-- Active Topic Info Header -->
+    <div class="flex items-center justify-between bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-2xs">
       <div>
-        <h2 id="topicTitle" class="text-2xl font-bold text-slate-800">Memory Aid Practice</h2>
-        <p id="topicSubtitle" class="text-sm text-slate-500">Practice general formula recall for core derivative rules.</p>
+        <h2 id="topicTitle" class="text-xl font-bold text-slate-800">Memory Aid Practice</h2>
+        <p id="topicSubtitle" class="text-xs text-slate-500">Practice general formula recall for core derivative rules.</p>
       </div>
-      <button onclick="shuffleDeck()" class="flex items-center gap-1.5 px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-sm transition">
-        <span>🔀</span> Shuffle Deck
-      </button>
+      <span id="cardCounter" class="text-xs font-semibold px-3 py-1 bg-slate-100 text-slate-600 rounded-full border border-slate-200">
+        Card 1 of 12
+      </span>
     </div>
 
     <!-- FLASHCARD CONTAINER -->
     <div class="relative w-full h-80 perspective">
-      <div id="cardInner" class="w-full h-full duration-500 transform-style-3d cursor-pointer rounded-2xl shadow-lg border border-slate-200 bg-white relative">
+      <div id="cardInner" class="w-full h-full duration-500 transform-style-3d cursor-pointer rounded-2xl shadow-md border border-slate-200 bg-white relative">
         
         <!-- CARD FRONT -->
         <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden bg-white">
           <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
             <span id="cardCategory" class="uppercase tracking-wider">Product Rule</span>
-            <span id="cardCounter">Card 1 of 5</span>
+            <span>FRONT - PROBLEM</span>
           </div>
           <div class="my-auto text-center">
-            <h3 id="cardTitle" class="text-xl font-semibold text-slate-700 mb-2">Product Rule</h3>
-            <div id="cardQuestionMath" class="text-2xl font-bold text-slate-900 my-4"></div>
-            <p id="cardPrompt" class="text-sm text-slate-500">What is the formula for y'?</p>
+            <h3 id="cardTitle" class="text-lg font-semibold text-slate-600 mb-2">Product Rule</h3>
+            <div id="cardQuestionMath" class="text-2xl font-bold text-slate-900 my-4 min-h-[3rem] flex items-center justify-center"></div>
+            <p id="cardPrompt" class="text-xs sm:text-sm text-slate-500">What is the formula for y'?</p>
           </div>
           <div class="text-center text-xs text-slate-400">Click or press "Flip Card" to reveal answer</div>
         </div>
@@ -109,14 +121,14 @@
         <!-- CARD BACK -->
         <div class="absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col justify-between backface-hidden rotate-y-180 bg-slate-900 text-white">
           <div class="flex justify-between items-center text-xs font-semibold text-emerald-400">
-            <span>SOLUTION / FORMULA</span>
-            <span>ANSWER</span>
+            <span>SOLUTION & STEPS</span>
+            <span>BACK - ANSWER</span>
           </div>
           <div class="my-auto text-center">
-            <div id="cardAnswerMath" class="text-2xl font-bold text-emerald-300 my-4"></div>
-            <div id="cardExplanation" class="text-sm text-slate-300 max-w-lg mx-auto"></div>
+            <div id="cardAnswerMath" class="text-xl sm:text-2xl font-bold text-emerald-300 my-3 min-h-[3rem] flex items-center justify-center"></div>
+            <div id="cardExplanation" class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed"></div>
           </div>
-          <div class="text-center text-xs text-slate-500">Click to flip back</div>
+          <div class="text-center text-xs text-slate-500">Click to flip back to question</div>
         </div>
 
       </div>
@@ -124,39 +136,39 @@
 
     <!-- FLASHCARD CONTROLS -->
     <div class="flex flex-wrap items-center justify-center gap-3">
-      <button onclick="prevCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 transition">← Previous</button>
-      <button onclick="toggleFlip()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-semibold rounded-lg text-white transition">Flip Card 🔄</button>
-      <button onclick="toggleHint()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 font-semibold rounded-lg text-amber-800 transition">Show Hint 💡</button>
-      <button onclick="nextCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 transition">Next →</button>
+      <button onclick="prevCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 text-sm transition">← Previous</button>
+      <button onclick="toggleFlip()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-semibold rounded-lg text-white text-sm transition shadow-sm">Flip Card 🔄</button>
+      <button onclick="toggleHint()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 font-semibold rounded-lg text-amber-800 text-sm transition">Show Hint 💡</button>
+      <button onclick="nextCard()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-semibold rounded-lg text-slate-700 text-sm transition">Next →</button>
     </div>
 
     <!-- HINT CONTAINER -->
-    <div id="hintBox" class="hidden p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-sm">
+    <div id="hintBox" class="hidden p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs sm:text-sm">
       <span class="font-bold">Hint:</span> <span id="hintText"></span>
     </div>
 
     <!-- STUDENT WORK AREA / SCRATCHPAD -->
-    <div class="bg-white border border-emerald-200 rounded-2xl p-5 shadow-sm flex flex-col gap-2">
+    <div class="bg-white border border-emerald-200 rounded-2xl p-4 shadow-2xs flex flex-col gap-2">
       <label class="text-xs font-bold uppercase tracking-wide text-emerald-700 flex items-center gap-1.5">
         <span>✏️</span> Work Area / Student Scratchpad:
       </label>
-      <textarea id="studentWork" rows="3" class="w-full p-3 border border-slate-200 rounded-xl text-sm font-mono focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Write your step-by-step work here..."></textarea>
+      <textarea id="studentWork" rows="3" class="w-full p-3 border border-slate-200 rounded-xl text-xs sm:text-sm font-mono focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Write your step-by-step work here..."></textarea>
     </div>
 
-    <!-- PROGRESS DASHBOARD -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-6 text-sm">
+    <!-- PROGRESS DASHBOARD & SELF-GRADING -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-6 text-xs sm:text-sm">
         <div>
           <span class="text-slate-400 block text-xs">Cards Reviewed</span>
-          <span id="statReviewed" class="text-lg font-bold text-slate-800">0</span>
+          <span id="statReviewed" class="text-base font-bold text-slate-800">0</span>
         </div>
         <div>
           <span class="text-slate-400 block text-xs">Accuracy Rate</span>
-          <span id="statAccuracy" class="text-lg font-bold text-emerald-600">0%</span>
+          <span id="statAccuracy" class="text-base font-bold text-emerald-600">0%</span>
         </div>
         <div>
           <span class="text-slate-400 block text-xs">Current Streak</span>
-          <span id="statStreak" class="text-lg font-bold text-amber-500">0 🔥</span>
+          <span id="statStreak" class="text-base font-bold text-amber-500">0 🔥</span>
         </div>
       </div>
 
@@ -170,29 +182,75 @@
   </main>
 
   <script>
-    // COMPLETE FLASHCARD DATASET
+    // FULL EXTENDED DATASETS FOR ALL TOPICS
     const decks = {
       memory: [
-        { cat: "Constant Rule", title: "Constant Rule", q: "y = c", prompt: "What is y'?", a: "y' = 0", exp: "The derivative of any constant value is zero.", hint: "Think about the slope of a flat horizontal line." },
-        { cat: "Constant Multiple", title: "Constant Multiple Rule", q: "y = c \\cdot f(x)", prompt: "What is y'?", a: "y' = c \\cdot f'(x)", exp: "Keep the constant c in front and multiply by f'(x).", hint: "Pull the constant outside the derivative operator." },
-        { cat: "Power Rule", title: "Power Rule", q: "y = x^n", prompt: "What is y'?", a: "y' = n x^{n-1}", exp: "Bring power n down to front and subtract 1 from exponent.", hint: "Multiply by power, subtract 1." },
-        { cat: "Product Rule", title: "Product Rule", q: "y = f(x)g(x)", prompt: "What is y'?", a: "y' = f'(x)g(x) + f(x)g'(x)", exp: "Derivative of first times second plus first times derivative of second.", hint: "f'g + fg'" },
-        { cat: "Quotient Rule", title: "Quotient Rule", q: "y = \\frac{f(x)}{g(x)}", prompt: "What is y'?", a: "y' = \\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}", exp: "Low d-high minus high d-low over low squared.", hint: "(f'g - fg') / g^2" },
-        { cat: "Chain Rule", title: "Chain Rule", q: "y = f(g(x)), \\quad u = g(x)", prompt: "What is \\frac{dy}{dx}?", a: "\\frac{dy}{dx} = f'(u) \\cdot u'", exp: "Differentiate outside function evaluating at u, multiply by u'.", hint: "Outer prime times inner prime." }
+        { cat: "Constant Rule", title: "Constant Rule Formula", q: "y = c", prompt: "What is y'?", a: "y' = 0", exp: "The derivative of any constant number c is zero.", hint: "Think about the slope of a flat horizontal line.", scratch: "y = c  ==>  y' = 0" },
+        { cat: "Constant Multiple", title: "Constant Multiple Rule", q: "y = c \\cdot f(x)", prompt: "What is y'?", a: "y' = c \\cdot f'(x)", exp: "Keep constant c in front and differentiate f(x).", hint: "Pull constant c outside derivative.", scratch: "y = c f(x)  ==>  y' = c f'(x)" },
+        { cat: "Power Rule", title: "Power Rule Formula", q: "y = x^n", prompt: "What is y'?", a: "y' = n x^{n-1}", exp: "Multiply power n down and subtract 1 from power.", hint: "Bring power to front, subtract 1.", scratch: "y = x^n  ==>  y' = n*x^(n-1)" },
+        { cat: "Sum & Difference", title: "Sum and Difference Rule", q: "y = f(x) \\pm g(x)", prompt: "What is y'?", a: "y' = f'(x) \\pm g'(x)", exp: "Differentiate each term separately.", hint: "Take derivative of each part.", scratch: "y = f(x) ± g(x)  ==>  y' = f'(x) ± g'(x)" },
+        { cat: "Product Rule", title: "Product Rule Formula", q: "y = f(x)g(x)", prompt: "What is y'?", a: "y' = f'(x)g(x) + f(x)g'(x)", exp: "f'g + fg' (first prime second plus first second prime).", hint: "Derivative of first times second plus first times derivative of second.", scratch: "f = ... , g = ... \nf' = ... , g' = ... \ny' = f'g + fg'" },
+        { cat: "Quotient Rule", title: "Quotient Rule Formula", q: "y = \\frac{f(x)}{g(x)}", prompt: "What is y'?", a: "y' = \\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}", exp: "Low d-high minus high d-low over low squared.", hint: "(f'g - fg') / g^2", scratch: "f = ... , g = ... \nf' = ... , g' = ... \ny' = (f'g - fg') / (g^2)" },
+        { cat: "Chain Rule", title: "Chain Rule Formula", q: "y = f(g(x)), \\quad u = g(x)", prompt: "What is \\frac{dy}{dx}?", a: "\\frac{dy}{dx} = f'(u) \\cdot u'", exp: "Differentiate outer function at u, multiply by inner derivative u'.", hint: "Outer prime times inner prime.", scratch: "u = g(x)\ny = f(u)\ndy/dx = (dy/du) * (du/dx)" },
+        { cat: "Trig Rules", title: "Sine & Cosine Rules", q: "y = \\sin(x), \\quad y = \\cos(x)", prompt: "What are y'?", a: "\\frac{d}{dx}[\\sin(x)] = \\cos(x), \\quad \\frac{d}{dx}[\\cos(x)] = -\\sin(x)", exp: "Sine becomes cosine; cosine becomes negative sine.", hint: "Watch out for negative sign on cosine!", scratch: "sin(x) --> cos(x)\ncos(x) --> -sin(x)" },
+        { cat: "Exp & Log", title: "Natural Exponential & Log", q: "y = e^x, \\quad y = \\ln(x)", prompt: "What are y'?", a: "\\frac{d}{dx}[e^x] = e^x, \\quad \\frac{d}{dx}[\\ln(x)] = \\frac{1}{x}", exp: "e^x stays e^x. Derivative of ln(x) is 1/x.", hint: "Exponential function is its own derivative.", scratch: "y = e^x ==> y' = e^x\ny = ln(x) ==> y' = 1/x" },
+        { cat: "Inverse Trig", title: "Arcsine & Arctangent", q: "y = \\arcsin(x), \\quad y = \\arctan(x)", prompt: "What are y'?", a: "\\frac{d}{dx}[\\arcsin(x)] = \\frac{1}{\\sqrt{1-x^2}}, \\quad \\frac{d}{dx}[\\arctan(x)] = \\frac{1}{1+x^2}", exp: "Arcsine has square root in denominator; arctan does not.", hint: "1/sqrt(1-x^2) vs 1/(1+x^2).", scratch: "arcsin(x) --> 1/sqrt(1-x^2)\narctan(x) --> 1/(1+x^2)" }
       ],
       constant: [
-        { cat: "Constant Rule", title: "Constant Rule Practice", q: "y = 5", prompt: "Find y'", a: "y' = 0", exp: "Derivative of constant 5 is 0.", hint: "Rate of change of a constant is always zero." },
-        { cat: "Constant Rule", title: "Constant Rule Practice", q: "y = \\pi^2", prompt: "Find y'", a: "y' = 0", exp: "pi^2 is a constant numerical value.", hint: "pi^2 contains no variables." }
+        { cat: "Constant Rule", title: "Constant Rule #1", q: "y = 8", prompt: "Find y'", a: "y' = 0", exp: "Derivative of constant numerical value 8 is 0.", hint: "Constant value has slope 0.", scratch: "y = 8  ==>  y' = 0" },
+        { cat: "Constant Rule", title: "Constant Rule #2", q: "y = \\pi^3", prompt: "Find y'", a: "y' = 0", exp: "\\pi^3 is a constant number (no x variable).", hint: "pi is a number (~3.14), so pi^3 is constant.", scratch: "y = pi^3  ==>  y' = 0" },
+        { cat: "Constant Rule", title: "Constant Rule #3", q: "y = -100", prompt: "Find y'", a: "y' = 0", exp: "Derivative of negative constant -100 is 0.", hint: "Any constant derivative equals 0.", scratch: "y = -100  ==>  y' = 0" }
+      ],
+      constant_multiple: [
+        { cat: "Constant Multiple", title: "Constant Multiple #1", q: "y = 5x^3", prompt: "Find y'", a: "y' = 15x^2", exp: "y' = 5 \\cdot (3x^2) = 15x^2.", hint: "Keep 5 in front, differentiate x^3.", scratch: "y = 5 * (x^3) ==> y' = 5 * 3x^2 = 15x^2" },
+        { cat: "Constant Multiple", title: "Constant Multiple #2", q: "y = -4\\cos(x)", prompt: "Find y'", a: "y' = 4\\sin(x)", exp: "y' = -4(-\\sin(x)) = 4\\sin(x).", hint: "Derivative of cos(x) is -sin(x).", scratch: "y = -4 cos(x) ==> y' = -4 * (-sin(x)) = 4 sin(x)" },
+        { cat: "Constant Multiple", title: "Constant Multiple #3", q: "y = 3e^x", prompt: "Find y'", a: "y' = 3e^x", exp: "y' = 3 \\cdot e^x = 3e^x.", hint: "e^x derivative is e^x.", scratch: "y = 3 e^x ==> y' = 3 e^x" }
+      ],
+      power: [
+        { cat: "Power Rule", title: "Polynomial Power", q: "y = x^7", prompt: "Find y'", a: "y' = 7x^6", exp: "y' = 7x^{7-1} = 7x^6.", hint: "Bring 7 down, power becomes 6.", scratch: "y = x^7  ==>  y' = 7*x^(7-1) = 7x^6" },
+        { cat: "Power Rule", title: "Square Root as Power", q: "y = \\sqrt{x} = x^{1/2}", prompt: "Find y'", a: "y' = \\frac{1}{2\\sqrt{x}} = \\frac{1}{2}x^{-1/2}", exp: "y' = \\frac{1}{2}x^{-1/2} = \\frac{1}{2\\sqrt{x}}.", hint: "Rewrite sqrt(x) as x^(1/2).", scratch: "y = x^(1/2) ==> y' = (1/2)x^(-1/2) = 1 / (2 sqrt(x))" },
+        { cat: "Power Rule", title: "Negative Exponent Power", q: "y = \\frac{1}{x^3} = x^{-3}", prompt: "Find y'", a: "y' = -3x^{-4} = -\\frac{3}{x^4}", exp: "y' = -3x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}.", hint: "Rewrite 1/x^3 as x^(-3).", scratch: "y = x^(-3) ==> y' = -3 x^(-4) = -3 / x^4" }
+      ],
+      sum_diff: [
+        { cat: "Sum & Difference", title: "Sum Rule #1", q: "y = x^4 + 3x^2 - 5", prompt: "Find y'", a: "y' = 4x^3 + 6x", exp: "Differentiate term by term: 4x^3 + 6x - 0.", hint: "Take derivative of x^4, 3x^2, and -5.", scratch: "d/dx[x^4] = 4x^3\nd/dx[3x^2] = 6x\nd/dx[-5] = 0\ny' = 4x^3 + 6x" },
+        { cat: "Sum & Difference", title: "Trig Sum Rule", q: "y = \\sin(x) + \\cos(x)", prompt: "Find y'", a: "y' = \\cos(x) - \\sin(x)", exp: "d/dx[sin(x)] = cos(x), d/dx[cos(x)] = -sin(x).", hint: "d/dx[sin(x)] + d/dx[cos(x)].", scratch: "y' = cos(x) + (-sin(x)) = cos(x) - sin(x)" }
       ],
       product: [
-        { cat: "Product Rule", title: "Product Rule Practice", q: "y = x^2 \\sin(x)", prompt: "Find y'", a: "y' = 2x\\sin(x) + x^2\\cos(x)", exp: "Set f(x)=x^2 and g(x)=sin(x). Apply f'g + fg'.", hint: "f'(x)=2x and g'(x)=cos(x)." }
+        { cat: "Product Rule", title: "Trig Product Practice", q: "y = x^2 \\sin(x)", prompt: "Find y'", a: "y' = 2x\\sin(x) + x^2\\cos(x)", exp: "Let f(x)=x^2, g(x)=\\sin(x). y'=f'g + fg' = 2x\\sin(x) + x^2\\cos(x).", hint: "f=x^2, f'=2x; g=sin(x), g'=cos(x).", scratch: "f = x^2 , f' = 2x\ng = sin(x) , g' = cos(x)\ny' = (2x)(sin(x)) + (x^2)(cos(x))" },
+        { cat: "Product Rule", title: "Exponential Product", q: "y = x e^x", prompt: "Find y'", a: "y' = e^x(x + 1) = e^x + x e^x", exp: "f(x)=x, f'(x)=1; g(x)=e^x, g'(x)=e^x. y'=(1)(e^x) + x(e^x) = e^x(1+x).", hint: "f'=1, g'=e^x.", scratch: "f = x, f' = 1\ng = e^x, g' = e^x\ny' = 1*e^x + x*e^x = e^x(1 + x)" }
+      ],
+      quotient: [
+        { cat: "Quotient Rule", title: "Quotient Rule Practice", q: "y = \\frac{x^2}{x + 1}", prompt: "Find y'", a: "y' = \\frac{x^2 + 2x}{(x + 1)^2}", exp: "f=x^2, f'=2x; g=x+1, g'=1. y'=\\frac{2x(x+1) - x^2(1)}{(x+1)^2} = \\frac{x^2+2x}{(x+1)^2}.", hint: "(f'g - fg') / g^2.", scratch: "f = x^2, f' = 2x\ng = x+1, g' = 1\ny' = [2x(x+1) - x^2(1)] / (x+1)^2" },
+        { cat: "Quotient Rule", title: "Trig Quotient Rule", q: "y = \\frac{\\sin(x)}{x}", prompt: "Find y'", a: "y' = \\frac{x\\cos(x) - \\sin(x)}{x^2}", exp: "f=\\sin(x), f'=\\cos(x); g=x, g'=1. y'=\\frac{\\cos(x)\\cdot x - \\sin(x)\\cdot 1}{x^2}.", hint: "Low d-high minus high d-low over low squared.", scratch: "f = sin(x), f' = cos(x)\ng = x, g' = 1\ny' = [x cos(x) - sin(x)] / x^2" }
       ],
       chain: [
-        { cat: "Chain Rule", title: "Chain Rule Practice", q: "y = (3x + 1)^4", prompt: "Find y' setting u = g(x)", a: "y' = 12(3x + 1)^3", exp: "Let u = 3x + 1. y = u^4. dy/du = 4u^3, du/dx = 3. Multiply to get 12u^3.", hint: "u = 3x + 1, so u' = 3." }
+        { cat: "Chain Rule", title: "Power Chain Rule", q: "y = (3x + 1)^4, \\quad u = 3x + 1", prompt: "Find y' using u-substitution", a: "y' = 12(3x + 1)^3", exp: "Let u = 3x+1, so y = u^4. dy/du = 4u^3, du/dx = 3. dy/dx = (4u^3)(3) = 12(3x+1)^3.", hint: "u = 3x + 1, u' = 3.", scratch: "u = 3x + 1  ==>  du/dx = 3\ny = u^4  ==>  dy/du = 4u^3\ndy/dx = 4u^3 * 3 = 12(3x+1)^3" },
+        { cat: "Chain Rule", title: "Trig Chain Rule", q: "y = \\sin(5x), \\quad u = 5x", prompt: "Find y' using u-substitution", a: "y' = 5\\cos(5x)", exp: "Let u = 5x, y = \\sin(u). dy/du = \\cos(u), du/dx = 5. dy/dx = 5\\cos(5x).", hint: "u = 5x, u' = 5.", scratch: "u = 5x  ==>  u' = 5\ny = sin(u)  ==>  dy/du = cos(u)\ny' = cos(5x) * 5 = 5 cos(5x)" },
+        { cat: "Chain Rule", title: "Exponential Chain Rule", q: "y = e^{x^2}, \\quad u = x^2", prompt: "Find y' using u-substitution", a: "y' = 2x e^{x^2}", exp: "Let u = x^2, y = e^u. dy/du = e^u, du/dx = 2x. dy/dx = 2x e^{x^2}.", hint: "u = x^2, u' = 2x.", scratch: "u = x^2  ==>  u' = 2x\ny = e^u  ==>  dy/du = e^u\ny' = e^(x^2) * 2x = 2x e^(x^2)" }
+      ],
+      trig: [
+        { cat: "Trig Rules", title: "Tangent Derivative", q: "y = \\tan(x)", prompt: "Find y'", a: "y' = \\sec^2(x)", exp: "Standard rule: d/dx[tan(x)] = sec^2(x).", hint: "Recall secant squared.", scratch: "y = tan(x)  ==>  y' = sec^2(x)" },
+        { cat: "Trig Rules", title: "Secant Derivative", q: "y = \\sec(x)", prompt: "Find y'", a: "y' = \\sec(x)\\tan(x)", exp: "Standard rule: d/dx[sec(x)] = sec(x)tan(x).", hint: "Secant times tangent.", scratch: "y = sec(x)  ==>  y' = sec(x)tan(x)" },
+        { cat: "Trig Rules", title: "Cosecant Derivative", q: "y = \\csc(x)", prompt: "Find y'", a: "y' = -\\csc(x)\\cot(x)", exp: "Standard rule: d/dx[csc(x)] = -csc(x)cot(x).", hint: "Co-functions start with negative!", scratch: "y = csc(x)  ==>  y' = -csc(x)cot(x)" },
+        { cat: "Trig Rules", title: "Cotangent Derivative", q: "y = \\cot(x)", prompt: "Find y'", a: "y' = -\\csc^2(x)", exp: "Standard rule: d/dx[cot(x)] = -csc^2(x).", hint: "Negative cosecant squared.", scratch: "y = cot(x)  ==>  y' = -csc^2(x)" }
+      ],
+      exp_log: [
+        { cat: "Exp & Log", title: "Natural Log Derivative", q: "y = \\ln(x)", prompt: "Find y'", a: "y' = \\frac{1}{x}", exp: "Standard rule: d/dx[ln(x)] = 1/x for x > 0.", hint: "Reciprocal 1/x.", scratch: "y = ln(x)  ==>  y' = 1/x" },
+        { cat: "Exp & Log", title: "General Base Exponential", q: "y = 2^x", prompt: "Find y'", a: "y' = 2^x \\ln(2)", exp: "Standard rule: d/dx[a^x] = a^x ln(a).", hint: "Multiply by ln(base).", scratch: "y = 2^x  ==>  y' = 2^x * ln(2)" },
+        { cat: "Exp & Log", title: "General Logarithm", q: "y = \\log_10(x)", prompt: "Find y'", a: "y' = \\frac{1}{x \\ln(10)}", exp: "Standard rule: d/dx[log_a(x)] = 1 / (x ln(a)).", hint: "ln(base) goes in denominator.", scratch: "y = log_10(x)  ==>  y' = 1 / (x ln(10))" }
+      ],
+      inv_trig: [
+        { cat: "Inverse Trig", title: "Arcsine Derivative", q: "y = \\arcsin(x)", prompt: "Find y'", a: "y' = \\frac{1}{\\sqrt{1 - x^2}}", exp: "Standard rule: d/dx[arcsin(x)] = 1/sqrt(1 - x^2).", hint: "Square root in denominator.", scratch: "y = arcsin(x)  ==>  y' = 1 / sqrt(1 - x^2)" },
+        { cat: "Inverse Trig", title: "Arctangent Derivative", q: "y = \\arctan(x)", prompt: "Find y'", a: "y' = \\frac{1}{1 + x^2}", exp: "Standard rule: d/dx[arctan(x)] = 1/(1 + x^2).", hint: "No square root, plus sign.", scratch: "y = arctan(x)  ==>  y' = 1 / (1 + x^2)" },
+        { cat: "Inverse Trig", title: "Arccosine Derivative", q: "y = \\arccos(x)", prompt: "Find y'", a: "y' = -\\frac{1}{\\sqrt{1 - x^2}}", exp: "Standard rule: d/dx[arccos(x)] = -1/sqrt(1 - x^2).", hint: "Negative version of arcsine.", scratch: "y = arccos(x)  ==>  y' = -1 / sqrt(1 - x^2)" }
+      ],
+      implicit: [
+        { cat: "Implicit Diff", title: "Implicit Derivative #1", q: "x^2 + y^2 = 25", prompt: "Find \\frac{dy}{dx}", a: "\\frac{dy}{dx} = -\\frac{x}{y}", exp: "2x + 2y\\frac{dy}{dx} = 0 \\implies 2y\\frac{dy}{dx} = -2x \\implies \\frac{dy}{dx} = -\\frac{x}{y}.", hint: "Take d/dx of both sides, attach dy/dx to y term.", scratch: "d/dx[x^2 + y^2 = 25]\n2x + 2y*(dy/dx) = 0\n2y*(dy/dx) = -2x\ndy/dx = -x/y" },
+        { cat: "Implicit Diff", title: "Implicit Derivative #2", q: "x + y^3 = 10", prompt: "Find \\frac{dy}{dx}", a: "\\frac{dy}{dx} = -\\frac{1}{3y^2}", exp: "1 + 3y^2\\frac{dy}{dx} = 0 \\implies 3y^2\\frac{dy}{dx} = -1 \\implies \\frac{dy}{dx} = -\\frac{1}{3y^2}.", hint: "d/dx[y^3] = 3y^2 (dy/dx).", scratch: "d/dx[x + y^3 = 10]\n1 + 3y^2*(dy/dx) = 0\n3y^2*(dy/dx) = -1\ndy/dx = -1 / (3y^2)" }
       ]
     };
 
-    // State Variables
+    // Application State Variables
     let currentTopicKey = 'memory';
     let activeDeck = [...decks.memory];
     let currentIndex = 0;
@@ -201,7 +259,7 @@
     let correctCount = 0;
     let currentStreak = 0;
 
-    // Element Selectors
+    // Element References
     const cardInner = document.getElementById('cardInner');
     const cardCategory = document.getElementById('cardCategory');
     const cardCounter = document.getElementById('cardCounter');
@@ -212,14 +270,35 @@
     const cardExplanation = document.getElementById('cardExplanation');
     const hintBox = document.getElementById('hintBox');
     const hintText = document.getElementById('hintText');
+    const studentWork = document.getElementById('studentWork');
+    const topicTitle = document.getElementById('topicTitle');
+    const topicSubtitle = document.getElementById('topicSubtitle');
+    const activeBadge = document.getElementById('activeBadge');
 
+    // TOPIC ROUTING FUNCTION
     function selectTopic(topicKey) {
       currentTopicKey = topicKey;
+
+      // Update button visual states
+      document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('topic-btn-active'));
+      const activeBtn = document.getElementById(`btn-${topicKey}`);
+      if (activeBtn) activeBtn.classList.add('topic-btn-active');
+
+      // Load correct deck
       if (topicKey === 'mixed') {
         activeDeck = Object.values(decks).flat();
+        shuffleDeck();
+        topicTitle.textContent = "Mixed Problems Practice";
+        topicSubtitle.textContent = "Comprehensive randomized practice across all derivative rules.";
+        activeBadge.textContent = "Mixed Deck";
       } else {
         activeDeck = [...(decks[topicKey] || decks.memory)];
+        const cardCat = activeDeck[0]?.cat || "Derivative Practice";
+        topicTitle.textContent = `${cardCat} Practice`;
+        topicSubtitle.textContent = `Practice step-by-step problems for ${cardCat}.`;
+        activeBadge.textContent = cardCat;
       }
+
       currentIndex = 0;
       isFlipped = false;
       cardInner.classList.remove('rotate-y-180');
@@ -227,6 +306,7 @@
       updateCard();
     }
 
+    // UPDATE CARD DISPLAY & KATEX MATH
     function updateCard() {
       const card = activeDeck[currentIndex];
       cardCategory.textContent = card.cat;
@@ -235,10 +315,17 @@
       cardPrompt.textContent = card.prompt;
       cardExplanation.textContent = card.exp;
       hintText.textContent = card.hint;
+      studentWork.placeholder = card.scratch || "Write your step-by-step work here...";
+      studentWork.value = ""; // Clear scratchpad for new card
 
-      // Render KaTeX Math
-      katex.render(card.q, cardQuestionMath, { displayMode: true, throwOnError: false });
-      katex.render(card.a, cardAnswerMath, { displayMode: true, throwOnError: false });
+      // Safe KaTeX Rendering
+      if (window.katex) {
+        katex.render(card.q, cardQuestionMath, { displayMode: true, throwOnError: false });
+        katex.render(card.a, cardAnswerMath, { displayMode: true, throwOnError: false });
+      } else {
+        cardQuestionMath.textContent = card.q;
+        cardAnswerMath.textContent = card.a;
+      }
     }
 
     function toggleFlip() {
@@ -251,22 +338,14 @@
     }
 
     function nextCard() {
-      if (currentIndex < activeDeck.length - 1) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
+      currentIndex = (currentIndex + 1) % activeDeck.length;
       if (isFlipped) toggleFlip();
       hintBox.classList.add('hidden');
       updateCard();
     }
 
     function prevCard() {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = activeDeck.length - 1;
-      }
+      currentIndex = (currentIndex - 1 + activeDeck.length) % activeDeck.length;
       if (isFlipped) toggleFlip();
       hintBox.classList.add('hidden');
       updateCard();
@@ -296,9 +375,10 @@
       nextCard();
     }
 
+    // Card click event listener
     cardInner.addEventListener('click', toggleFlip);
 
-    // Initial Load
+    // Initial Startup
     window.onload = () => selectTopic('memory');
   </script>
 </body>
