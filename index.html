@@ -10,9 +10,8 @@
   
   <!-- KaTeX for Math Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,7 +19,9 @@
   <style>
     .perspective { perspective: 1000px; }
     .transform-style-3d { transform-style: preserve-3d; }
-    .backface-hidden { backface-visibility: hidden; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    #flashcard:focus-visible { outline: 3px solid #059669; outline-offset: 4px; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
     
     /* Topic Tile Base Styling */
@@ -63,7 +64,7 @@
         </h1>
         <p class="text-sm text-slate-500 mt-0.5">Select a topic deck to start practicing derivative formulas and problems.</p>
       </div>
-      <button onclick="shuffleDeck()" class="flex items-center gap-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+      <button type="button" data-action="shuffleDeck()" class="flex items-center gap-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-lg text-sm font-medium transition shadow-sm">
         <i data-lucide="shuffle" class="w-4 h-4 text-indigo-500"></i> Shuffle Deck
       </button>
     </div>
@@ -71,67 +72,67 @@
     <!-- Navigation Header: Colorful Square Grid Tiles -->
     <div class="grid grid-cols-4 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-13 gap-2.5 mb-8">
       
-      <button onclick="selectTopic('memory')" id="btn-memory" class="topic-tile bg-pink-50 hover:bg-pink-100 border-pink-200 active">
+      <button type="button" data-action="selectTopic('memory')" id="btn-memory" class="topic-tile bg-pink-50 hover:bg-pink-100 border-pink-200 active">
         <span class="text-2xl mb-1">🧠</span>
         <span class="text-[11px] font-bold text-pink-900 text-center leading-tight">Memory Aid</span>
       </button>
 
-      <button onclick="selectTopic('mixed')" id="btn-mixed" class="topic-tile bg-purple-50 hover:bg-purple-100 border-purple-200">
+      <button type="button" data-action="selectTopic('mixed')" id="btn-mixed" class="topic-tile bg-purple-50 hover:bg-purple-100 border-purple-200">
         <span class="text-2xl mb-1">✨</span>
         <span class="text-[11px] font-bold text-purple-900 text-center leading-tight">Mixed Deck</span>
       </button>
 
-      <button onclick="selectTopic('constant')" id="btn-constant" class="topic-tile bg-rose-50 hover:bg-rose-100 border-rose-200">
+      <button type="button" data-action="selectTopic('constant')" id="btn-constant" class="topic-tile bg-rose-50 hover:bg-rose-100 border-rose-200">
         <span class="text-2xl mb-1">🛑</span>
         <span class="text-[11px] font-bold text-rose-900 text-center leading-tight">Constant</span>
       </button>
 
-      <button onclick="selectTopic('constant_multiple')" id="btn-constant_multiple" class="topic-tile bg-amber-50 hover:bg-amber-100 border-amber-200">
+      <button type="button" data-action="selectTopic('constant_multiple')" id="btn-constant_multiple" class="topic-tile bg-amber-50 hover:bg-amber-100 border-amber-200">
         <span class="text-2xl mb-1">✖️</span>
         <span class="text-[11px] font-bold text-amber-900 text-center leading-tight">Const Mult</span>
       </button>
 
-      <button onclick="selectTopic('power')" id="btn-power" class="topic-tile bg-yellow-50 hover:bg-yellow-100 border-yellow-200">
+      <button type="button" data-action="selectTopic('power')" id="btn-power" class="topic-tile bg-yellow-50 hover:bg-yellow-100 border-yellow-200">
         <span class="text-2xl mb-1">⚡</span>
         <span class="text-[11px] font-bold text-yellow-900 text-center leading-tight">Power Rule</span>
       </button>
 
-      <button onclick="selectTopic('sum_diff')" id="btn-sum_diff" class="topic-tile bg-lime-50 hover:bg-lime-100 border-lime-200">
+      <button type="button" data-action="selectTopic('sum_diff')" id="btn-sum_diff" class="topic-tile bg-lime-50 hover:bg-lime-100 border-lime-200">
         <span class="text-2xl mb-1">➕</span>
         <span class="text-[11px] font-bold text-lime-900 text-center leading-tight">Sum & Diff</span>
       </button>
 
-      <button onclick="selectTopic('product')" id="btn-product" class="topic-tile bg-emerald-50 hover:bg-emerald-100 border-emerald-200">
+      <button type="button" data-action="selectTopic('product')" id="btn-product" class="topic-tile bg-emerald-50 hover:bg-emerald-100 border-emerald-200">
         <span class="text-2xl mb-1">📦</span>
         <span class="text-[11px] font-bold text-emerald-900 text-center leading-tight">Product Rule</span>
       </button>
 
-      <button onclick="selectTopic('quotient')" id="btn-quotient" class="topic-tile bg-teal-50 hover:bg-teal-100 border-teal-200">
+      <button type="button" data-action="selectTopic('quotient')" id="btn-quotient" class="topic-tile bg-teal-50 hover:bg-teal-100 border-teal-200">
         <span class="text-2xl mb-1">➗</span>
         <span class="text-[11px] font-bold text-teal-900 text-center leading-tight">Quotient Rule</span>
       </button>
 
-      <button onclick="selectTopic('chain')" id="btn-chain" class="topic-tile bg-cyan-50 hover:bg-cyan-100 border-cyan-200">
+      <button type="button" data-action="selectTopic('chain')" id="btn-chain" class="topic-tile bg-cyan-50 hover:bg-cyan-100 border-cyan-200">
         <span class="text-2xl mb-1">🔗</span>
         <span class="text-[11px] font-bold text-cyan-900 text-center leading-tight">Chain (u-sub)</span>
       </button>
 
-      <button onclick="selectTopic('trig')" id="btn-trig" class="topic-tile bg-sky-50 hover:bg-sky-100 border-sky-200">
+      <button type="button" data-action="selectTopic('trig')" id="btn-trig" class="topic-tile bg-sky-50 hover:bg-sky-100 border-sky-200">
         <span class="text-2xl mb-1">🌊</span>
         <span class="text-[11px] font-bold text-sky-900 text-center leading-tight">Trig Rules</span>
       </button>
 
-      <button onclick="selectTopic('exp_log')" id="btn-exp_log" class="topic-tile bg-blue-50 hover:bg-blue-100 border-blue-200">
+      <button type="button" data-action="selectTopic('exp_log')" id="btn-exp_log" class="topic-tile bg-blue-50 hover:bg-blue-100 border-blue-200">
         <span class="text-2xl mb-1">📈</span>
         <span class="text-[11px] font-bold text-blue-900 text-center leading-tight">Exp & Log</span>
       </button>
 
-      <button onclick="selectTopic('inv_trig')" id="btn-inv_trig" class="topic-tile bg-indigo-50 hover:bg-indigo-100 border-indigo-200">
+      <button type="button" data-action="selectTopic('inv_trig')" id="btn-inv_trig" class="topic-tile bg-indigo-50 hover:bg-indigo-100 border-indigo-200">
         <span class="text-2xl mb-1">🔄</span>
         <span class="text-[11px] font-bold text-indigo-900 text-center leading-tight">Inverse Trig</span>
       </button>
 
-      <button onclick="selectTopic('implicit')" id="btn-implicit" class="topic-tile bg-violet-50 hover:bg-violet-100 border-violet-200">
+      <button type="button" data-action="selectTopic('implicit')" id="btn-implicit" class="topic-tile bg-violet-50 hover:bg-violet-100 border-violet-200">
         <span class="text-2xl mb-1">🔀</span>
         <span class="text-[11px] font-bold text-violet-900 text-center leading-tight">Implicit Diff</span>
       </button>
@@ -151,7 +152,7 @@
 
     <!-- FLASHCARD CONTAINER -->
     <div class="perspective w-full h-72 mb-6">
-      <div id="flashcard" onclick="toggleFlip()" class="relative w-full h-full duration-500 transform-style-3d cursor-pointer shadow-md rounded-2xl">
+      <div id="flashcard" role="button" tabindex="0" aria-label="Flip derivative flashcard" aria-pressed="false" data-action="toggleFlip()" class="relative w-full h-full duration-500 transform-style-3d cursor-pointer shadow-md rounded-2xl">
         
         <!-- CARD FRONT (Soft Yellow) -->
         <div class="absolute inset-0 w-full h-full backface-hidden p-6 flex flex-col justify-between items-center text-center rounded-2xl bg-amber-50/90 border-2 border-amber-200/90 shadow-inner">
@@ -191,24 +192,24 @@
     </div>
 
     <!-- FLASHCARD CONTROL BUTTONS -->
-    <div class="flex items-center justify-center gap-3 mb-6">
-      <button onclick="prevCard()" class="flex items-center gap-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+      <button type="button" data-action="prevCard()" class="flex items-center gap-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
         <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous
       </button>
 
-      <button onclick="toggleFlip()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-sm font-bold transition shadow-md">
+      <button type="button" data-action="toggleFlip()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-sm font-bold transition shadow-md">
         <i data-lucide="rotate-cw" class="w-4 h-4"></i> Flip Card
       </button>
 
-      <button onclick="toggleHint()" class="flex items-center gap-1 bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+      <button type="button" data-action="toggleHint()" class="flex items-center gap-1 bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
         <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i> Show Hint
       </button>
 
-      <button onclick="toggleDetailedSolution()" class="flex items-center gap-1 bg-sky-100 hover:bg-sky-200 text-sky-800 border border-sky-300 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+      <button type="button" data-action="toggleDetailedSolution()" class="flex items-center gap-1 bg-sky-100 hover:bg-sky-200 text-sky-800 border border-sky-300 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
         <i data-lucide="search" class="w-4 h-4 text-sky-600"></i> Show Solution
       </button>
 
-      <button onclick="nextCard()" class="flex items-center gap-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+      <button type="button" data-action="nextCard()" class="flex items-center gap-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
         Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
       </button>
     </div>
@@ -251,10 +252,10 @@
 
       <div class="flex items-center gap-2">
         <span class="text-slate-500 mr-1">Self-Grading:</span>
-        <button onclick="recordGrade(true)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 px-3 py-1.5 rounded-lg font-semibold transition">
+        <button type="button" data-action="recordGrade(true)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 px-3 py-1.5 rounded-lg font-semibold transition">
           Got it Right 👍
         </button>
-        <button onclick="recordGrade(false)" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 px-3 py-1.5 rounded-lg font-semibold transition">
+        <button type="button" data-action="recordGrade(false)" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 px-3 py-1.5 rounded-lg font-semibold transition">
           Need Review 👎
         </button>
       </div>
@@ -437,7 +438,8 @@
       activeTopic = topicKey;
       activeDeck = [...(decks[topicKey] || decks.memory)];
       currentIndex = 0;
-      isFlipped = false;
+
+      // updateCard resets the actual card transform and state together.
 
       // Update button highlights
       document.querySelectorAll('.topic-tile').forEach(btn => btn.classList.remove('active'));
@@ -473,6 +475,7 @@
 
     function updateCard() {
       const card = activeDeck[currentIndex];
+      document.getElementById('card-category').innerText = card.cat.toUpperCase();
       document.getElementById('card-question').innerHTML = `\\(${card.q}\\)`;
       document.getElementById('card-subtext').innerText = card.sub;
       document.getElementById('card-answer').innerHTML = `\\(${card.a}\\)`;
@@ -489,10 +492,9 @@
       document.getElementById('hint-box').classList.add('hidden');
       document.getElementById('solution-panel').classList.add('hidden');
 
-      if (isFlipped) {
-        document.getElementById('flashcard').classList.remove('rotate-y-180');
-        isFlipped = false;
-      }
+      document.getElementById('flashcard').classList.remove('rotate-y-180');
+      document.getElementById('flashcard').setAttribute('aria-pressed', 'false');
+      isFlipped = false;
 
       // Re-render KaTeX math
       if (window.renderMathInElement) {
@@ -504,6 +506,7 @@
     function toggleFlip() {
       const flashcard = document.getElementById('flashcard');
       isFlipped = !isFlipped;
+      flashcard.setAttribute('aria-pressed', String(isFlipped));
       if (isFlipped) {
         flashcard.classList.add('rotate-y-180');
       } else {
@@ -552,12 +555,45 @@
       nextCard();
     }
 
-    window.onload = () => {
-      if (window.lucide) {
-        lucide.createIcons();
-      }
+    function initializePractice() {
+      const actions = {
+        shuffleDeck, toggleFlip, toggleHint, toggleDetailedSolution,
+        prevCard, nextCard
+      };
+      document.querySelectorAll('[data-action]').forEach(control => {
+        const action = control.dataset.action;
+        const topic = action.match(/^selectTopic\('([a-z_]+)'\)$/);
+        control.addEventListener('click', () => {
+          if (topic) selectTopic(topic[1]);
+          else if (action === 'recordGrade(true)') recordGrade(true);
+          else if (action === 'recordGrade(false)') recordGrade(false);
+          else {
+            const handler = actions[action.replace('()', '')];
+            if (handler) handler();
+          }
+        });
+      });
+      document.getElementById('flashcard').addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleFlip();
+        }
+      });
       selectTopic('memory');
-    };
+    }
+
+    function initializePresentation() {
+      if (window.lucide) lucide.createIcons();
+      if (window.renderMathInElement) renderMathInElement(document.body);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializePractice, { once: true });
+    } else {
+      initializePractice();
+    }
+    if (document.readyState === 'complete') initializePresentation();
+    else window.addEventListener('load', initializePresentation, { once: true });
   </script>
 </body>
 </html>
