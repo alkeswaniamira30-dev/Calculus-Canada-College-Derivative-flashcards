@@ -149,11 +149,11 @@
       </span>
     </div>
 
-    <!-- FLASHCARD CONTAINER (FRONT IS NOW LIGHT SOFT YELLOW) -->
+    <!-- FLASHCARD CONTAINER -->
     <div class="perspective w-full h-72 mb-6">
       <div id="flashcard" onclick="toggleFlip()" class="relative w-full h-full duration-500 transform-style-3d cursor-pointer shadow-md rounded-2xl">
         
-        <!-- CARD FRONT (Light Warm Yellow) -->
+        <!-- CARD FRONT (Soft Yellow) -->
         <div class="absolute inset-0 w-full h-full backface-hidden p-6 flex flex-col justify-between items-center text-center rounded-2xl bg-amber-50/90 border-2 border-amber-200/90 shadow-inner">
           <div class="w-full flex justify-between items-center text-xs font-bold tracking-wider uppercase text-amber-800/70">
             <span id="card-category">CONSTANT RULE</span>
@@ -161,8 +161,8 @@
           </div>
           
           <div class="my-auto">
-            <div id="card-question" class="text-2xl text-slate-900 mb-2 font-medium">\( y = c \)</div>
-            <div id="card-subtext" class="text-sm text-slate-600 font-medium">What is \( y' \)?</div>
+            <div id="card-question" class="text-2xl text-slate-900 mb-2 font-medium">\(y = c\)</div>
+            <div id="card-subtext" class="text-sm text-slate-600 font-medium">What is \(y'\)?</div>
           </div>
 
           <div class="text-xs text-amber-700 font-semibold flex items-center gap-1">
@@ -178,7 +178,7 @@
           </div>
 
           <div class="my-auto">
-            <div id="card-answer" class="text-2xl font-bold text-emerald-950 mb-2">\( y' = 0 \)</div>
+            <div id="card-answer" class="text-2xl font-bold text-emerald-950 mb-2">\(y' = 0\)</div>
             <p id="card-explanation" class="text-sm text-emerald-800 max-w-md mx-auto font-medium">The derivative of any constant value is zero.</p>
           </div>
 
@@ -270,115 +270,4 @@
         { cat: "Power Rule Formula", q: "y = x^n", sub: "What is y'?", a: "y' = n x^{n-1}", exp: "Multiply by the exponent, subtract 1 from exponent.", hint: "Bring n to the front.", sol: "y' = n x^{n-1}." },
         { cat: "Constant Multiple Formula", q: "y = c \\cdot f(x)", sub: "What is y'?", a: "y' = c \\cdot f'(x)", exp: "Pull out constant and multiply by f'(x).", hint: "The constant factor remains unchanged.", sol: "y' = c \\cdot \\frac{d}{dx}[f(x)] = c f'(x)." },
         { cat: "Product Rule Formula", q: "y = u \\cdot v", sub: "What is y'?", a: "y' = u'v + uv'", exp: "Derivative of first times second plus first times derivative of second.", hint: "u'v + uv'", sol: "y' = u'(x)v(x) + u(x)v'(x)." },
-        { cat: "Quotient Rule Formula", q: "y = \\frac{u}{v}", sub: "What is y'?", a: "y' = \\frac{u'v - uv'}{v^2}", exp: "(Low d-High minus High d-Low) over Low squared.", hint: "(u'v - uv') / v^2", sol: "y' = \\frac{u'v - uv'}{v^2}." },
-        { cat: "Chain Rule Formula", q: "y = f(g(x))", sub: "What is y'?", a: "y' = f'(g(x)) \\cdot g'(x)", exp: "Derivative of outer function multiplied by derivative of inner function.", hint: "Outside derivative times inside derivative.", sol: "Let u = g(x) \\implies y' = f'(u) \\cdot u'." },
-        { cat: "Sine Formula", q: "y = \\sin(x)", sub: "What is y'?", a: "y' = \\cos(x)", exp: "Derivative of sine is cosine.", hint: "Standard trig derivative.", sol: "y' = \\cos(x)." },
-        { cat: "Cosine Formula", q: "y = \\cos(x)", sub: "What is y'?", a: "y' = -\\sin(x)", exp: "Derivative of cosine is negative sine.", hint: "Co-functions always have negative derivatives.", sol: "y' = -\\sin(x)." },
-        { cat: "Exponential Formula", q: "y = e^x", sub: "What is y'?", a: "y' = e^x", exp: "The natural exponential function is its own derivative.", hint: "e^x stays e^x.", sol: "y' = e^x." },
-        { cat: "Natural Log Formula", q: "y = \\ln(x)", sub: "What is y'?", a: "y' = \\frac{1}{x}", exp: "Derivative of ln(x) is 1/x for x > 0.", hint: "Reciprocal of x.", sol: "y' = \\frac{1}{x}." }
-      ],
-      mixed: [
-        { cat: "Constant Rule", q: "y = -42", sub: "Find y'", a: "y' = 0", exp: "Derivative of a constant is 0.", hint: "No x term.", sol: "y' = 0." },
-        { cat: "Constant Multiple", q: "y = 5e^x", sub: "Find y'", a: "y' = 5e^x", exp: "Constant 5 factor stays, derivative of e^x is e^x.", hint: "5 * d/dx[e^x]", sol: "y' = 5e^x." },
-        { cat: "Power Rule (Root)", q: "y = \\sqrt{x}", sub: "Find y'", a: "y' = \\frac{1}{2\\sqrt{x}}", exp: "Rewrite as x^(1/2) and apply power rule.", hint: "1/2 * x^(-1/2)", sol: "y' = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}." },
-        { cat: "Sum Rule", q: "y = x^3 + \\sin(x)", sub: "Find y'", a: "y' = 3x^2 + \\cos(x)", exp: "Differentiate each term individually.", hint: "Power rule on x^3, trig rule on sin(x).", sol: "y' = 3x^2 + \\cos(x)." },
-        { cat: "Product Rule", q: "y = x \\ln(x)", sub: "Find y'", a: "y' = 1 + \\ln(x)", exp: "u = x, v = ln(x) => u'v + uv' = 1*ln(x) + x*(1/x).", hint: "u'v + uv'", sol: "y' = (1)\\ln(x) + x\\left(\\frac{1}{x}\\right) = \\ln(x) + 1." },
-        { cat: "Quotient Rule", q: "y = \\frac{e^x}{x}", sub: "Find y'", a: "y' = \\frac{e^x(x - 1)}{x^2}", exp: "(x e^x - e^x*1) / x^2", hint: "(Low d-High - High d-Low) / Low^2", sol: "y' = \\frac{x e^x - e^x(1)}{x^2} = \\frac{e^x(x - 1)}{x^2}." },
-        { cat: "Chain Rule", q: "y = \\cos(4x)", sub: "Find y'", a: "y' = -4\\sin(4x)", exp: "Outer deriv = -sin(4x), inner deriv = 4.", hint: "d/dx[cos(u)] = -sin(u) * u'", sol: "u = 4x \\implies u' = 4 \\implies y' = -4\\sin(4x)." },
-        { cat: "Base Exponential", q: "y = 3^x", sub: "Find y'", a: "y' = 3^x \\ln(3)", exp: "d/dx[a^x] = a^x ln(a).", hint: "Multiply by ln(base).", sol: "y' = 3^x \\ln(3)." },
-        { cat: "Inverse Trig", q: "y = \\arctan(x)", sub: "Find y'", a: "y' = \\frac{1}{1 + x^2}", exp: "Standard arctan derivative formula.", hint: "1 / (1 + x^2)", sol: "y' = \\frac{1}{1+x^2}." },
-        { cat: "Implicit Diff", q: "x^2 + y^2 = 9", sub: "Find y'", a: "y' = -\\frac{x}{y}", exp: "2x + 2y y' = 0 => y' = -x/y.", hint: "Remember dy/dx for y terms.", sol: "2x + 2y y' = 0 \\implies y' = -\\frac{x}{y}." }
-      ],
-      constant: [
-        { cat: "Constant Rule", q: "y = 15", sub: "Find y'", a: "y' = 0", exp: "Derivative of constant is 0.", hint: "Numerical constant.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = -8.5", sub: "Find y'", a: "y' = 0", exp: "Negative numbers are constants.", hint: "No variable x.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = \\pi", sub: "Find y'", a: "y' = 0", exp: "Pi is a fixed constant (~3.14159).", hint: "Pi does not contain x.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = e^2", sub: "Find y'", a: "y' = 0", exp: "e^2 is a constant numerical constant (~7.389).", hint: "There is no x in e^2.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = \\ln(5)", sub: "Find y'", a: "y' = 0", exp: "ln(5) is a constant number.", hint: "No x inside logarithm.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = \\sin(\\pi / 4)", sub: "Find y'", a: "y' = 0", exp: "sin(pi/4) evaluates to sqrt(2)/2, which is a constant.", hint: "Evaluated trig value.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = \\sqrt{10}", sub: "Find y'", a: "y' = 0", exp: "Square root of a number is constant.", hint: "No variable.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = \\frac{3}{7}", sub: "Find y'", a: "y' = 0", exp: "Fractional constant.", hint: "No x present.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = 100^0", sub: "Find y'", a: "y' = 0", exp: "100^0 = 1, derivative is 0.", hint: "Evaluates to 1.", sol: "y' = 0." },
-        { cat: "Constant Rule", q: "y = k \\quad \\text{(where } k \\text{ is constant)}", sub: "Find y'", a: "y' = 0", exp: "Symbolic constant k has 0 derivative.", hint: "k is constant.", sol: "y' = 0." }
-      ],
-      constant_multiple: [
-        { cat: "Constant Multiple", q: "y = 6x", sub: "Find y'", a: "y' = 6", exp: "6 * d/dx[x] = 6 * 1 = 6.", hint: "Derivative of x is 1.", sol: "y' = 6(1) = 6." },
-        { cat: "Constant Multiple", q: "y = 4x^3", sub: "Find y'", a: "y' = 12x^2", exp: "4 * (3x^2) = 12x^2.", hint: "Keep 4 and apply power rule to x^3.", sol: "y' = 4(3x^2) = 12x^2." },
-        { cat: "Constant Multiple", q: "y = 3\\sin(x)", sub: "Find y'", a: "y' = 3\\cos(x)", exp: "3 * d/dx[sin(x)] = 3cos(x).", hint: "Trig rule with multiplier 3.", sol: "y' = 3\\cos(x)." },
-        { cat: "Constant Multiple", q: "y = -2\\cos(x)", sub: "Find y'", a: "y' = 2\\sin(x)", exp: "-2 * (-sin(x)) = 2sin(x).", hint: "Negative times negative is positive.", sol: "y' = -2(-\\sin(x)) = 2\\sin(x)." },
-        { cat: "Constant Multiple", q: "y = 8e^x", sub: "Find y'", a: "y' = 8e^x", exp: "Constant 8 stays, d/dx[e^x] = e^x.", hint: "Exponential rule.", sol: "y' = 8e^x." },
-        { cat: "Constant Multiple", q: "y = 5\\ln(x)", sub: "Find y'", a: "y' = \\frac{5}{x}", exp: "5 * (1/x) = 5/x.", hint: "d/dx[ln(x)] = 1/x.", sol: "y' = 5\\left(\\frac{1}{x}\\right) = \\frac{5}{x}." },
-        { cat: "Constant Multiple", q: "y = 7\\tan(x)", sub: "Find y'", a: "y' = 7\\sec^2(x)", exp: "7 * d/dx[tan(x)] = 7sec^2(x).", hint: "Derivative of tan is sec^2.", sol: "y' = 7\\sec^2(x)." },
-        { cat: "Constant Multiple", q: "y = -\\frac{1}{2}x^4", sub: "Find y'", a: "y' = -2x^3", exp: "-1/2 * (4x^3) = -2x^3.", hint: "-1/2 * 4 = -2.", sol: "y' = -\\frac{1}{2}(4x^3) = -2x^3." },
-        { cat: "Constant Multiple", q: "y = 10\\sqrt{x}", sub: "Find y'", a: "y' = \\frac{5}{\\sqrt{x}}", exp: "10 * (1/(2sqrt(x))) = 5/sqrt(x).", hint: "10 * 1/2 = 5.", sol: "y' = 10\\left(\\frac{1}{2\\sqrt{x}}\\right) = \\frac{5}{\\sqrt{x}}." },
-        { cat: "Constant Multiple", q: "y = 4\\arctan(x)", sub: "Find y'", a: "y' = \\frac{4}{1 + x^2}", exp: "4 * (1 / (1 + x^2)).", hint: "Inverse trig multiplier.", sol: "y' = \\frac{4}{1+x^2}." }
-      ],
-      power: [
-        { cat: "Positive Integer Power", q: "y = x^6", sub: "Find y'", a: "y' = 6x^5", exp: "Bring down 6, power becomes 5.", hint: "Power rule.", sol: "y' = 6x^{6-1} = 6x^5." },
-        { cat: "Negative Integer Power", q: "y = x^{-3}", sub: "Find y'", a: "y' = -3x^{-4} = -\\frac{3}{x^4}", exp: "Bring down -3, subtract 1: -3 - 1 = -4.", hint: "-3 - 1 = -4.", sol: "y' = -3x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}." },
-        { cat: "Fraction Power (1/2)", q: "y = x^{1/2}", sub: "Find y'", a: "y' = \\frac{1}{2}x^{-1/2} = \\frac{1}{2\\sqrt{x}}", exp: "Bring down 1/2, 1/2 - 1 = -1/2.", hint: "1/2 - 1 = -1/2.", sol: "y' = \\frac{1}{2}x^{1/2 - 1} = \\frac{1}{2\\sqrt{x}}." },
-        { cat: "Fraction Power (3/2)", q: "y = x^{3/2}", sub: "Find y'", a: "y' = \\frac{3}{2}x^{1/2} = \\frac{3}{2}\\sqrt{x}", exp: "Bring down 3/2, 3/2 - 1 = 1/2.", hint: "3/2 - 1 = 1/2.", sol: "y' = \\frac{3}{2}x^{3/2 - 1} = \\frac{3}{2}\\sqrt{x}." },
-        { cat: "Root Notation (Cube Root)", q: "y = \\sqrt[3]{x}", sub: "Find y'", a: "y' = \\frac{1}{3}x^{-2/3} = \\frac{1}{3\\sqrt[3]{x^2}}", exp: "Rewrite as x^(1/3), derivative is 1/3 x^(-2/3).", hint: "x^(1/3).", sol: "y = x^{1/3} \\implies y' = \\frac{1}{3}x^{-2/3} = \\frac{1}{3\\sqrt[3]{x^2}}." },
-        { cat: "Negative Fractional Power", q: "y = x^{-1/2}", sub: "Find y'", a: "y' = -\\frac{1}{2}x^{-3/2} = -\\frac{1}{2\\sqrt{x^3}}", exp: "-1/2 - 1 = -3/2.", hint: "-1/2 - 1 = -3/2.", sol: "y' = -\\frac{1}{2}x^{-1/2 - 1} = -\\frac{1}{2}x^{-3/2}." },
-        { cat: "Reciprocal Power", q: "y = \\frac{1}{x}", sub: "Find y'", a: "y' = -x^{-2} = -\\frac{1}{x^2}", exp: "Rewrite as x^(-1), derivative is -1 x^(-2).", hint: "Rewrite as x^(-1).", sol: "y = x^{-1} \\implies y' = -1x^{-2} = -\\frac{1}{x^2}." },
-        { cat: "Reciprocal Power Squared", q: "y = \\frac{1}{x^2}", sub: "Find y'", a: "y' = -2x^{-3} = -\\frac{2}{x^3}", exp: "Rewrite as x^(-2), derivative is -2 x^(-3).", hint: "Rewrite as x^(-2).", sol: "y = x^{-2} \\implies y' = -2x^{-3} = -\\frac{2}{x^3}." },
-        { cat: "Reciprocal Root", q: "y = \\frac{1}{\\sqrt{x}}", sub: "Find y'", a: "y' = -\\frac{1}{2}x^{-3/2} = -\\frac{1}{2\\sqrt{x^3}}", exp: "Rewrite as x^(-1/2).", hint: "x^(-1/2).", sol: "y = x^{-1/2} \\implies y' = -\\frac{1}{2}x^{-3/2}." },
-        { cat: "Root Fourth", q: "y = \\sqrt[4]{x^3}", sub: "Find y'", a: "y' = \\frac{3}{4}x^{-1/4} = \\frac{3}{4\\sqrt[4]{x}}", exp: "Rewrite as x^(3/4), derivative is 3/4 x^(-1/4).", hint: "x^(3/4).", sol: "y = x^{3/4} \\implies y' = \\frac{3}{4}x^{-1/4} = \\frac{3}{4\\sqrt[4]{x}}." }
-      ],
-      sum_diff: [
-        { cat: "Polynomial Sum", q: "y = x^4 + x^2", sub: "Find y'", a: "y' = 4x^3 + 2x", exp: "Differentiate x^4 and x^2 separately.", hint: "Power rule on each term.", sol: "y' = 4x^3 + 2x." },
-        { cat: "Poly Difference", q: "y = 3x^5 - 2x^3 + 7", sub: "Find y'", a: "y' = 15x^4 - 6x^2", exp: "15x^4 - 6x^2 + 0.", hint: "Constant 7 derivative is 0.", sol: "y' = 15x^4 - 6x^2." },
-        { cat: "Trig Sum", q: "y = \\sin(x) + \\cos(x)", sub: "Find y'", a: "y' = \\cos(x) - \\sin(x)", exp: "d/dx[sin] = cos, d/dx[cos] = -sin.", hint: "Separate trig rules.", sol: "y' = \\cos(x) - \\sin(x)." },
-        { cat: "Exp & Poly Sum", q: "y = e^x + x^3", sub: "Find y'", a: "y' = e^x + 3x^2", exp: "Derivative of e^x is e^x, power rule on x^3.", hint: "e^x stays e^x.", sol: "y' = e^x + 3x^2." },
-        { cat: "Log & Trig Diff", q: "y = \\ln(x) - \\tan(x)", sub: "Find y'", a: "y' = \\frac{1}{x} - \\sec^2(x)", exp: "d/dx[ln(x)] = 1/x, d/dx[tan(x)] = sec^2(x).", hint: "1/x and sec^2(x).", sol: "y' = \\frac{1}{x} - \\sec^2(x)." },
-        { cat: "Root & Linear", q: "y = \\sqrt{x} + 4x", sub: "Find y'", a: "y' = \\frac{1}{2\\sqrt{x}} + 4", exp: "Power rule on x^(1/2) plus linear 4.", hint: "1/(2sqrt(x)) + 4.", sol: "y' = \\frac{1}{2\\sqrt{x}} + 4." },
-        { cat: "Trig & Exponential", q: "y = 2e^x - 3\\sin(x)", sub: "Find y'", a: "y' = 2e^x - 3\\cos(x)", exp: "Constant multiples preserved for e^x and sin(x).", hint: "2e^x - 3cos(x).", sol: "y' = 2e^x - 3\\cos(x)." },
-        { cat: "Inverse Trig & Poly", q: "y = \\arctan(x) + 5x^2", sub: "Find y'", a: "y' = \\frac{1}{1 + x^2} + 10x", exp: "Arctan derivative + power rule on 5x^2.", hint: "1/(1+x^2) + 10x.", sol: "y' = \\frac{1}{1+x^2} + 10x." },
-        { cat: "Multi-term Mix", q: "y = x^{-2} + \\ln(x) - \\cos(x)", sub: "Find y'", a: "y' = -2x^{-3} + \\frac{1}{x} + \\sin(x)", exp: "Negative power rule + log rule - (-sin(x)).", hint: "-(-sin) = +sin.", sol: "y' = -2x^{-3} + \\frac{1}{x} + \\sin(x)." },
-        { cat: "Rational & Trig", q: "y = \\frac{1}{x} + 2\\tan(x)", sub: "Find y'", a: "y' = -\\frac{1}{x^2} + 2\\sec^2(x)", exp: "-1/x^2 + 2sec^2(x).", hint: "-1/x^2 for 1/x.", sol: "y' = -\\frac{1}{x^2} + 2\\sec^2(x)." }
-      ],
-      product: [
-        { cat: "Product: Poly * Trig", q: "y = x^2 \\sin(x)", sub: "Find y'", a: "y' = 2x \\sin(x) + x^2 \\cos(x)", exp: "u = x^2, v = sin(x) => u'v + uv'", hint: "2x sin(x) + x^2 cos(x)", sol: "u'=2x, v'=\\cos(x) \\implies y' = 2x\\sin(x) + x^2\\cos(x)." },
-        { cat: "Product: Linear * Exp", q: "y = x e^x", sub: "Find y'", a: "y' = e^x(x + 1)", exp: "u = x, v = e^x => 1*e^x + x*e^x = e^x(1 + x).", hint: "e^x + x e^x", sol: "y' = (1)e^x + x(e^x) = e^x(x + 1)." },
-        { cat: "Product: Poly * Log", q: "y = x^3 \\ln(x)", sub: "Find y'", a: "y' = 3x^2 \\ln(x) + x^2", exp: "3x^2 ln(x) + x^3(1/x) = 3x^2 ln(x) + x^2.", hint: "3x^2 ln(x) + x^2", sol: "y' = (3x^2)\\ln(x) + x^3\\left(\\frac{1}{x}\\right) = 3x^2\\ln(x) + x^2." },
-        { cat: "Product: Exp * Trig", q: "y = e^x \\cos(x)", sub: "Find y'", a: "y' = e^x(\\cos(x) - \\sin(x))", exp: "e^x cos(x) + e^x(-sin(x)) = e^x(cos(x) - sin(x)).", hint: "e^x cos - e^x sin", sol: "y' = e^x\\cos(x) + e^x(-\\sin(x)) = e^x(\\cos(x) - \\sin(x))." },
-        { cat: "Product: Trig * Trig", q: "y = \\sin(x) \\cos(x)", sub: "Find y'", a: "y' = \\cos^2(x) - \\sin^2(x) = \\cos(2x)", exp: "cos(x)cos(x) + sin(x)(-sin(x)) = cos^2(x) - sin^2(x).", hint: "cos^2 - sin^2", sol: "y' = (\\cos x)(\\cos x) + (\\sin x)(-\\sin x) = \\cos^2(x) - \\sin^2(x)." },
-        { cat: "Product: Root * Exp", q: "y = \\sqrt{x} e^x", sub: "Find y'", a: "y' = e^x\\left(\\frac{1}{2\\sqrt{x}} + \\sqrt{x}\\right)", exp: "(1/(2sqrt(x)))e^x + sqrt(x)e^x.", hint: "Product rule on sqrt(x) and e^x.", sol: "y' = \\left(\\frac{1}{2\\sqrt{x}}\\right)e^x + \\sqrt{x}e^x." },
-        { cat: "Product: Poly * InvTrig", q: "y = x \\arctan(x)", sub: "Find y'", a: "y' = \\arctan(x) + \\frac{x}{1 + x^2}", exp: "1*arctan(x) + x*(1/(1+x^2)).", hint: "arctan(x) + x/(1+x^2)", sol: "y' = (1)\\arctan(x) + x\\left(\\frac{1}{1+x^2}\\right) = \\arctan(x) + \\frac{x}{1+x^2}." },
-        { cat: "Product: Exp * Log", q: "y = e^x \\ln(x)", sub: "Find y'", a: "y' = e^x \\ln(x) + \\frac{e^x}{x}", exp: "e^x ln(x) + e^x (1/x).", hint: "e^x ln(x) + e^x / x", sol: "y' = e^x\\ln(x) + e^x\\left(\\frac{1}{x}\\right)." },
-        { cat: "Product: Poly * Secant", q: "y = x^2 \\sec(x)", sub: "Find y'", a: "y' = 2x \\sec(x) + x^2 \\sec(x)\\tan(x)", exp: "2x sec(x) + x^2 sec(x)tan(x).", hint: "d/dx[sec(x)] = sec(x)tan(x)", sol: "y' = 2x\\sec(x) + x^2\\sec(x)\\tan(x)." },
-        { cat: "Product: Linear * Cosecant", q: "y = x \\csc(x)", sub: "Find y'", a: "y' = \\csc(x) - x \\csc(x)\\cot(x)", exp: "1*csc(x) + x*(-csc(x)cot(x)).", hint: "d/dx[csc(x)] = -csc(x)cot(x)", sol: "y' = \\csc(x) - x\\csc(x)\\cot(x)." }
-      ],
-      quotient: [
-        { cat: "Quotient: Trig / Poly", q: "y = \\frac{\\sin(x)}{x}", sub: "Find y'", a: "y' = \\frac{x\\cos(x) - \\sin(x)}{x^2}", exp: "(x cos(x) - sin(x)*1) / x^2", hint: "(Low d-High - High d-Low) / Low^2", sol: "y' = \\frac{x(\\cos x) - \\sin x(1)}{x^2}." },
-        { cat: "Quotient: Exp / Poly", q: "y = \\frac{e^x}{x^2}", sub: "Find y'", a: "y' = \\frac{x^2 e^x - 2x e^x}{x^4} = \\frac{e^x(x - 2)}{x^3}", exp: "(x^2 e^x - e^x*2x) / x^4 = e^x(x-2)/x^3.", hint: "Factor out e^x and simplify x.", sol: "y' = \\frac{x^2 e^x - 2x e^x}{x^4} = \\frac{e^x(x - 2)}{x^3}." },
-        { cat: "Quotient: Poly / Poly", q: "y = \\frac{x + 1}{x - 1}", sub: "Find y'", a: "y' = -\\frac{2}{(x - 1)^2}", exp: "((x-1)(1) - (x+1)(1)) / (x-1)^2 = -2 / (x-1)^2.", hint: "(x - 1 - x - 1) / (x-1)^2", sol: "y' = \\frac{(x-1)(1) - (x+1)(1)}{(x-1)^2} = \\frac{-2}{(x-1)^2}." },
-        { cat: "Quotient: Log / Poly", q: "y = \\frac{\\ln(x)}{x}", sub: "Find y'", a: "y' = \\frac{1 - \\ln(x)}{x^2}", exp: "(x*(1/x) - ln(x)*1) / x^2 = (1 - ln(x)) / x^2.", hint: "(1 - ln(x)) / x^2", sol: "y' = \\frac{x(1/x) - \\ln(x)(1)}{x^2} = \\frac{1 - \\ln(x)}{x^2}." },
-        { cat: "Quotient: Poly / Trig", q: "y = \\frac{x^2}{\\cos(x)}", sub: "Find y'", a: "y' = \\frac{2x\\cos(x) + x^2\\sin(x)}{\\cos^2(x)}", exp: "(cos(x)*2x - x^2(-sin(x))) / cos^2(x).", hint: "Low d-High minus High d-Low.", sol: "y' = \\frac{2x\\cos(x) - x^2(-\\sin x)}{\\cos^2(x)} = \\frac{2x\\cos(x) + x^2\\sin(x)}{\\cos^2(x)}." },
-        { cat: "Quotient: Exp / Trig", q: "y = \\frac{e^x}{\\sin(x)}", sub: "Find y'", a: "y' = \\frac{e^x(\\sin(x) - \\cos(x))}{\\sin^2(x)}", exp: "(sin(x)e^x - e^x cos(x)) / sin^2(x).", hint: "e^x(sin - cos) / sin^2", sol: "y' = \\frac{\\sin(x)e^x - e^x\\cos(x)}{\\sin^2(x)} = \\frac{e^x(\\sin x - \\cos x)}{\\sin^2 x}." },
-        { cat: "Quotient: Poly / Exp", q: "y = \\frac{x}{e^x}", sub: "Find y'", a: "y' = \\frac{1 - x}{e^x}", exp: "(e^x(1) - x e^x) / (e^x)^2 = e^x(1-x)/e^{2x} = (1-x)/e^x.", hint: "Cancel e^x.", sol: "y' = \\frac{e^x(1) - x e^x}{e^{2x}} = \\frac{1 - x}{e^x}." },
-        { cat: "Quotient: Trig / Trig", q: "y = \\frac{1 + \\sin(x)}{\\cos(x)}", sub: "Find y'", a: "y' = \\frac{1 + \\sin(x)}{\\cos^2(x)}", exp: "(cos(cos) - (1+sin)(-sin)) / cos^2 = (cos^2 + sin + sin^2)/cos^2.", hint: "cos^2 + sin^2 = 1.", sol: "y' = \\frac{\\cos^2 x + \\sin x + \\sin^2 x}{\\cos^2 x} = \\frac{1 + \\sin x}{\\cos^2 x}." },
-        { cat: "Quotient: Log / Exp", q: "y = \\frac{\\ln(x)}{e^x}", sub: "Find y'", a: "y' = \\frac{1/x - \\ln(x)}{e^x} = \\frac{1 - x\\ln(x)}{x e^x}", exp: "(e^x/x - e^x ln(x)) / e^{2x} = (1/x - ln(x))/e^x.", hint: "Combine fractions.", sol: "y' = \\frac{e^x(1/x) - \\ln(x)e^x}{e^{2x}} = \\frac{1 - x\\ln(x)}{x e^x}." },
-        { cat: "Quotient: Poly / Root", q: "y = \\frac{x}{\\sqrt{x + 1}}", sub: "Find y'", a: "y' = \\frac{x + 2}{2(x + 1)^{3/2}}", exp: "Quotient rule + chain rule on denominator.", hint: "Low d-High minus High d-Low.", sol: "y' = \\frac{\\sqrt{x+1}(1) - x\\left(\\frac{1}{2\\sqrt{x+1}}\\right)}{x+1} = \\frac{x+2}{2(x+1)^{3/2}}." }
-      ],
-      chain: [
-        { cat: "Chain Rule: Power Outer", q: "y = (3x^2 + 1)^4", sub: "Find y'", a: "y' = 24x(3x^2 + 1)^3", exp: "u = 3x^2 + 1, dy/du = 4u^3, du/dx = 6x.", hint: "Outside: 4u^3, Inside deriv: 6x.", sol: "Let u = 3x^2+1 \\implies \\frac{du}{dx} = 6x. \\\\ y = u^4 \\implies \\frac{dy}{du} = 4u^3. \\\\ y' = 4(3x^2+1)^3 \\cdot (6x) = 24x(3x^2+1)^3." },
-        { cat: "Chain Rule: Trig Outer", q: "y = \\sin(5x^3)", sub: "Find y'", a: "y' = 15x^2 \\cos(5x^3)", exp: "u = 5x^3, deriv of sin(u) is cos(u)*15x^2.", hint: "cos(5x^3) * 15x^2", sol: "Let u = 5x^3 \\implies du/dx = 15x^2. \\\\ y' = \\cos(5x^3) \\cdot (15x^2) = 15x^2\\cos(5x^3)." },
-        { cat: "Chain Rule: Exp Outer", q: "y = e^{x^2}", sub: "Find y'", a: "y' = 2x e^{x^2}", exp: "u = x^2, du/dx = 2x. Derivative is e^{x^2} * 2x.", hint: "e^u * u'", sol: "Let u = x^2 \\implies du/dx = 2x. \\\\ y' = e^{x^2} \\cdot 2x = 2x e^{x^2}." },
-        { cat: "Chain Rule: Log Outer", q: "y = \\ln(x^4 + 2)", sub: "Find y'", a: "y' = \\frac{4x^3}{x^4 + 2}", exp: "u = x^4 + 2, du/dx = 4x^3. Derivative is (1/u)*du/dx.", hint: "u' / u", sol: "Let u = x^4 + 2 \\implies du/dx = 4x^3. \\\\ y' = \\frac{1}{x^4+2} \\cdot (4x^3) = \\frac{4x^3}{x^4+2}." },
-        { cat: "Chain Rule: Root Outer", q: "y = \\sqrt{2x + 7}", sub: "Find y'", a: "y' = \\frac{1}{\\sqrt{2x + 7}}", exp: "u = 2x+7, dy/du = 1/(2sqrt(u)), du/dx = 2.", hint: "(1/(2sqrt(u))) * 2", sol: "Let u = 2x+7 \\implies du/dx = 2. \\\\ y' = \\frac{1}{2\\sqrt{2x+7}} \\cdot 2 = \\frac{1}{\\sqrt{2x+7}}." },
-        { cat: "Chain Rule: Cosine Power", q: "y = \\cos^3(x)", sub: "Find y'", a: "y' = -3\\cos^2(x)\\sin(x)", exp: "u = cos(x), y = u^3 => 3u^2 * (-sin(x)).", hint: "3 cos^2(x) * (-sin(x))", sol: "Let u = \\cos(x) \\implies du/dx = -\\sin(x). \\\\ y' = 3\\cos^2(x) \\cdot (-\\sin x) = -3\\cos^2(x)\\sin(x)." },
-        { cat: "Chain Rule: Tan Inside", q: "y = \\tan(e^x)", sub: "Find y'", a: "y' = e^x \\sec^2(e^x)", exp: "u = e^x, deriv of tan(u) is sec^2(u)*e^x.", hint: "sec^2(e^x) * e^x", sol: "Let u = e^x \\implies du/dx = e^x. \\\\ y' = \\sec^2(e^x) \\cdot e^x = e^x\\sec^2(e^x)." },
-        { cat: "Chain Rule: Arctan Inside", q: "y = \\arctan(3x)", sub: "Find y'", a: "y' = \\frac{3}{1 + 9x^2}", exp: "u = 3x, u^2 = 9x^2, du/dx = 3.", hint: "3 / (1 + (3x)^2)", sol: "Let u = 3x \\implies du/dx = 3. \\\\ y' = \\frac{1}{1+(3x)^2} \\cdot 3 = \\frac{3}{1+9x^2}." },
-        { cat: "Chain Rule: Negative Power", q: "y = (x^2 + 5)^{-2}", sub: "Find y'", a: "y' = -4x(x^2 + 5)^{-3}", exp: "u = x^2+5, -2u^{-3} * (2x) = -4x(x^2+5)^{-3}.", hint: "-2 u^(-3) * 2x", sol: "Let u = x^2+5 \\implies du/dx = 2x. \\\\ y' = -2(x^2+5)^{-3} \\cdot 2x = -4x(x^2+5)^{-3}." },
-        { cat: "Chain Rule: Triple Composition", q: "y = e^{\\sin(2x)}", sub: "Find y'", a: "y' = 2\\cos(2x)e^{\\sin(2x)}", exp: "Outer e^u, middle sin(v), inner 2x.", hint: "e^{sin(2x)} * cos(2x) * 2", sol: "y' = e^{\\sin(2x)} \\cdot \\cos(2x) \\cdot 2 = 2\\cos(2x)e^{\\sin(2x)}." }
-      ],
-      trig: [
-        { cat: "Sine", q: "y = \\sin(x)", sub: "Find y'", a: "y' = \\cos(x)", exp: "Derivative of sine is cosine.", hint: "cos(x)", sol: "y' = \\cos(x)." },
-        { cat: "Cosine", q: "y = \\cos(x)", sub: "Find y'", a: "y' = -\\sin(x)", exp: "Derivative of cosine is negative sine.", hint: "-sin(x)", sol: "y' = -\\sin(x)." },
-        { cat: "Tangent", q: "y = \\tan(x)", sub: "Find y'", a: "y' = \\sec^2(x)", exp: "Derivative of tangent is secant squared.", hint: "sec^2(x)", sol: "y' = \\sec^2(x)." },
-        { cat: "Cotangent", q: "y = \\cot(x)", sub: "Find y'", a: "y' = -\\csc^2(x)", exp: "Derivative of cotangent is negative cosecant squared.", hint: "-csc^2(x)", sol: "y' = -\\csc^2(x)." },
-        { cat: "Secant", q: "y = \\sec(x)", sub: "Find y'", a: "y' = \\sec(x)\\tan(x)", exp: "Derivative of secant is secant times tangent.", hint: "sec(x)tan(x)", sol: "y' = \\sec(x)\\tan(x)." },
-        { cat: "Cosecant", q: "y = \\csc(x)", sub: "Find y'", a: "y' = -\\csc(x)\\cot(x)", exp: "Derivative of cosecant is negative cosecant times cotangent.", hint: "-csc(x)cot(x)", sol: "y' = -\\csc(x)\\cot(x)." },
-        { cat: "Linear Sine", q: "y = \\sin(3x)", sub: "Find y'", a: "y' = 3\\cos(3x)", exp: "Chain rule on 3x gives multiplier 3.", hint: "3 cos(3x)", sol: "y' = \\cos(3x) \\cdot 3 = 3\\cos(3x)." },
-        { cat: "Linear Cosine", q: "y = \\cos(-2x)", sub: "Find y'", a: "y' = 2\\sin(-2x) = -2\\sin(2x)", exp: "Chain rule multiplier -2.", hint: "-(-2)sin(-2x)", sol: "y' = -
+        { cat: "Quotient Rule Formula", q: "y = \\frac{u}{v}", sub: "What is y'?", a: "y' = \\frac{u'v - uv'}{v^2}", exp: "(Low d-High minus High d-Low) over Low squared.", hint: "(u'v - uv') / v^2", sol
